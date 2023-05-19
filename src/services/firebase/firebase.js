@@ -4,13 +4,11 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, on
 import { toast } from "react-toastify";
 import { store } from "../../app/store";
 import { setUser } from "../../features/user";
-import { addDoc, collection, doc, getDoc, getDocs, getFirestore, onSnapshot, orderBy, query, setDoc, where } from "firebase/firestore";
+import { addDoc, collection, getDocs, getFirestore, increment, onSnapshot, query, updateDoc, where, doc, arrayUnion, getDoc } from "firebase/firestore";
 import { setAllPosts } from "../../features/allPosts";
 import { setCurrentPost } from "../../features/currentPost";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-
-
-
+import { setPostComments } from "../../features/postComments";
 
 
 const firebaseConfig = {
@@ -62,7 +60,6 @@ export const registerWithEmailAndPassword = async (email, password, confirmPassw
         }
     } catch (error) {
         const errorMessage = error.code;
-        // toast.warning(errorMessage);
         if (errorMessage === "auth/email-already-in-use") {
             toast.warning("E-posta adresi kullanımda .Lütfen başka bir e-posta adresi girin!", {
                 autoClose: 1500
@@ -151,17 +148,17 @@ onAuthStateChanged(auth, (user) => {
     }
 });
 
-
+// Post ekleme
 export const addPost = async (post, user) => {
     const date = new Date();
     try {
         if (user.role === "admin") {
             await addDoc(collection(db, "posts"), {
                 postId: post.id,
-                postTitle: post.title,
+                postTitle: post.title.toLowerCase(),
                 content: post.content,
                 author: "Halil Can Cengiz",
-                category: post.category,
+                category: post.category.toLowerCase(),
                 createdAt: String(date),
                 comments: [],
                 metaDescription: post.metaDescription,
@@ -174,15 +171,12 @@ export const addPost = async (post, user) => {
         console.error("Error addPost", error);
     }
 };
-
+// Tüm postları getirme 
 export const getPosts = async () => {
     try {
         const postsCollection = collection(db, "posts");
         onSnapshot(postsCollection, (snapshot) => {
-            const posts = [];
-            snapshot.forEach((doc) => {
-                posts.push(doc.data());
-            });
+            const posts = snapshot.docs.map((doc) => doc.data());
             store.dispatch(setAllPosts(posts));
         });
     } catch (error) {
@@ -190,7 +184,7 @@ export const getPosts = async () => {
     }
 };
 
-
+// id ye göre postu getirme
 export const getPostById = async (title) => {
     try {
         const querySnapshot = await getDocs(query(collection(db, "posts"), where("postTitle", "==", title.replace(/-/g, ' '))));
@@ -201,7 +195,7 @@ export const getPostById = async (title) => {
     }
 };
 
-
+// storage a postun fotoğrafını ekleme
 export const addPostImageToStorage = async (id, image) => {
     const imageRef = ref(storage, `posts-images/${id}`);
     try {
@@ -211,6 +205,7 @@ export const addPostImageToStorage = async (id, image) => {
     }
 };
 
+// storage dan postun fotoğrafını getirme
 export const getPostImageFromStorage = async (id) => {
     try {
         const imageRef = ref(storage, `posts-images/${id}`)
@@ -225,14 +220,131 @@ export const getPostImageFromStorage = async (id) => {
     }
 }
 
+// postun okunma sayısını güncelleme(arttırma)
 export const updateReadingCount = async (postId) => {
-    const postRef = doc(db, "posts", postId);
     try {
-        await updateDoc(postRef, {
-            readingCount: firebase.firestore.FieldValue.increment(1)
-        });
-        console.log("Reading count updated successfully!");
+        const querySnapshot = await getDocs(query(collection(db, "posts"), where("postId", "==", postId)));
+        querySnapshot.forEach(async (item) => {
+            await updateDoc(doc(db, "posts", item.id), {
+                "readingCount": increment(1)
+            });
+        })
     } catch (error) {
-        console.error("Error updating reading count: ", error);
+        console.error("Belge alanını güncellerken hata oluştu: ", error);
+    }
+};
+
+
+export const addComment = async (user, commentContent, postId) => {
+    const date = new Date();
+    try {
+        if (user) {
+            await addDoc(collection(db, "comments"), {
+                postId,
+                author: user.uid,
+                createdAt: String(date),
+                content: commentContent,
+                replies: [],
+                likes: [],
+                dislikes: [],
+                role: user.role
+            });
+        } else {
+            throw new Error("User is not authorized to add comment");
+        }
+    } catch (error) {
+        console.error("Error addComment", error);
+    }
+}
+
+export const updateComment = () => {
+    try {
+
+    } catch (error) {
+
+    }
+}
+
+export const deleteComment = () => {
+    try {
+
+    } catch (error) {
+
+    }
+}
+
+export const getAllCommentsForPost = async (postId) => {
+    try {
+        const querySnapshot = await getDocs(query(collection(db, "comments"), where("postId", "==", postId)));
+        const comments = querySnapshot.docs.map((doc) => {
+            const commentData = doc.data();
+            return { ...commentData, commentId: doc.id };
+        });
+
+        onSnapshot(query(collection(db, "comments"), where("postId", "==", postId)), (snapshot) => {
+            const updatedComments = snapshot.docs.map((doc) => {
+                const updatedCommentData = doc.data();
+                return { ...updatedCommentData, commentId: doc.id };
+            });
+            store.dispatch(setPostComments(updatedComments));
+        });
+
+    } catch (error) {
+        toast.error(`getAllCommentsForPost: ${error}`);
+        return [];
+    }
+};
+
+export const addLike = async (commentId, userId, type) => {
+    try {
+        const commentRef = doc(db, "comments", commentId);
+        const commentSnapshot = await getDoc(commentRef);
+
+        const commentData = commentSnapshot.data();
+        const likes = commentData.likes || [];
+
+        // Kontrol işlemi
+        const userIndex = likes.findIndex(like => like.id === userId);
+        if (userIndex !== -1) {
+            // Kullanıcının beğenisi zaten varsa güncelle
+            likes[userIndex].type = type;
+        } else {
+            // Kullanıcının beğenisi yoksa ekle
+            likes.push({ id: userId, type });
+        }
+
+        await updateDoc(commentRef, { likes });
+    } catch (error) {
+        toast.error(error.message);
+    }
+};
+export const removeLike = async (commentId, userId) => {
+    try {
+        await updateDoc(doc(db, "comments", commentId), {
+            likes: arrayRemove(userId)
+        });
+    } catch (error) {
+        toast.error(error.message)
+    }
+}
+
+export const addDislike = async (commentId, userId) => {
+    try {
+        await updateDoc(doc(db, "movie-comments", commentId), {
+            dislikes: arrayUnion(`${userId}`)
+        }
+        )
+    } catch (error) {
+        toast.error(error.message)
+    }
+}
+
+export const removeDislike = async (commentId, userId) => {
+    try {
+        await updateDoc(doc(db, "movie-comments", commentId), {
+            dislikes: arrayRemove(userId)
+        });
+    } catch (error) {
+        toast.error(error.message)
     }
 }

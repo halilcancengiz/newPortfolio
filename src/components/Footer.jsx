@@ -2,6 +2,9 @@ import React from "react";
 import { BsTwitter, FcGoogle, SiFacebook } from "../assets/icon";
 import { NavLink } from "react-router-dom";
 
+
+
+// optimize
 const Footer = () => {
   return (
     <div className="mt-10 bg-black-500 font-sans sm:px-16 xs:px-10 py-20">

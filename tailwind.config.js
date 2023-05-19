@@ -100,6 +100,7 @@ module.exports = {
         'dark-btn': '0 0 2px rgba(0,0,0,.9)',
         'purple': '0 5px 5px rgb(114,206,96)',
         'tech': '0 0 5px black',
+        'like': '0 0 5px gray',
         "project":"0 0 10px black"
       },
       boxShadow: {

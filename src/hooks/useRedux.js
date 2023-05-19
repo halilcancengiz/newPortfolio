@@ -1,9 +1,10 @@
-import { useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 
 export const useRedux = () => {
-    const user = useSelector(state => state.user.value)
-    const posts = useSelector(state => state.posts.allPosts)
-    const currentPost = useSelector(state => state.currentPost.value)
+    const currentPost = useSelector(state => state.currentPost.value, shallowEqual, shallowEqual)
+    const postComments = useSelector(state => state.postComments.value, shallowEqual);
+    const user = useSelector(state => state.user.value, shallowEqual);
+    const posts = useSelector(state => state.posts.allPosts, shallowEqual);
 
-    return { user, posts, currentPost };
+    return { user, posts, currentPost, postComments };
 }

@@ -13,7 +13,7 @@ export const AllPosts = () => {
 
   useEffect(() => {
     getPosts();
-    setFilteredList(posts.filter((post) => post.postTitle.toLowerCase().includes(search.toLowerCase())))
+    setFilteredList(posts.filter((post) => post.postTitle.toLowerCase().includes(search.toLowerCase().trim())))
   }, [search]);
 
   return (

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, memo } from "react";
 import ReactMarkdown from "react-markdown";
 import { useParams } from "react-router-dom";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight";
@@ -7,20 +7,30 @@ import remarkGfm from "remark-gfm";
 import { useRedux } from "../hooks/useRedux";
 import { getPostById } from "../services/firebase/firebase";
 import { CommentsContainer } from "../components/CommentsContainer";
-import { AddComment } from "../components/AddComment";
+import { Helmet } from "react-helmet";
 
-export const PostDetails = () => {
-  const params = useParams();
-  const { currentPost } = useRedux();
+
+
+const PostDetails = () => {
+  // console.count("PostDetails rendered"); // 4 kez render ediliyor
+  const { title } = useParams();
+  const { currentPost, user } = useRedux();
 
   useEffect(() => {
-    if (params.title) {
-      getPostById(params.title);
+    if (title) {
+      getPostById(title)
     }
-  }, [params.title]);
+  }, [title]);
   return (
     <>
-      <div className="min-h-screen min-w-screen max-w-[1000px] mx-auto text-white">
+      <Helmet>
+        <title>{title}</title>
+        <meta name="description" content={currentPost.metaDescription} />
+        <html lang="tr" />
+        <link rel="canonical" href={window.location.href} />
+        <meta name="robots" content="index, follow" />
+      </Helmet>
+      <main className="min-h-screen min-w-screen max-w-[1000px] mx-auto text-white">
         {currentPost && (
           <ReactMarkdown
             key={currentPost.postId}
@@ -48,19 +58,20 @@ export const PostDetails = () => {
                 );
               },
               h1: ({ node, ...props }) => (
-                <h1 className="text-4xl mb-5 font-bold" {...props} />
+                <h1 className="text-4xl mb-5 font-bold capitalize" {...props} />
               ),
               h2: ({ node, ...props }) => (
-                <h2 className="text-3xl mb-5 font-bold" {...props} />
+                <h2 className="text-3xl mb-5 font-bold capitalize" {...props} />
               ),
               h3: ({ node, ...props }) => (
-                <h3 className="text-2xl mb-5 font-bold" {...props} />
+                <h3 className="text-2xl mb-5 font-bold capitalize" {...props} />
               ),
               h4: ({ node, ...props }) => (
-                <h4 className="text-lg mb-5 font-bold" {...props} />
+                <h4 className="text-lg mb-5 font-bold capitalize" {...props} />
               ),
               p: ({ node, ...props }) => (
-                <p className="text-base flex max-w-full mb-5" {...props} />
+                <article className="text-base inline-block max-w-full mb-5" {...props} />
+
               ),
               img: ({ node, ...props }) => (
                 <div className="mx-auto">
@@ -73,9 +84,9 @@ export const PostDetails = () => {
             }}
           />
         )}
-
-        <CommentsContainer />
-      </div>
+        <CommentsContainer postId={currentPost.postId} isLoggedIn={user} />
+      </main>
     </>
   );
 };
+export default memo(PostDetails); 

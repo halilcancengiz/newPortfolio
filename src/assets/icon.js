@@ -30,3 +30,10 @@ export { FaRegComments } from 'react-icons/fa'; /*Add İmage */
 export { VscCopy } from 'react-icons/vsc'; /*Add İmage */
 export { FcCheckmark } from 'react-icons/fc'; /*Add İmage */
 export { FaComments } from 'react-icons/fa'; /*comments */
+export { SlLike } from 'react-icons/sl'; /*like */
+export { SlDislike } from 'react-icons/sl'; /*dislike */
+export { RiSendPlaneFill } from 'react-icons/ri'; /*dislike */
+export { FaLaughBeam } from 'react-icons/fa'; /*FaLaughBeam emoji */
+export { AiFillLike } from 'react-icons/ai'; /*FaLaughBeam emoji */
+export { BsLightbulbFill } from 'react-icons/bs'; /*FaLaughBeam emoji */
+export { AiFillHeart } from 'react-icons/ai'; /*FaLaughBeam emoji */

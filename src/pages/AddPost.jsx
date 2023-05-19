@@ -34,11 +34,11 @@ export const AddPost = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (
-      post.title.length <= 0 &&
-      post.content.length <= 0 &&
-      post.category.length <= 0 &&
-      post.metaDescription.length <= 0 &&
-      postImage !== null
+      post.title.length <= 0 ||
+      post.content.length <= 0 ||
+      post.category.length <= 0 ||
+      post.metaDescription.length <= 0 ||
+      !postImage
     ) {
       toast.error("Lütfen Tüm alanları Doldurunuz");
     } else {

@@ -2,16 +2,17 @@ import React from "react";
 import { Routes as RouteContainer, Route, useLocation } from "react-router-dom";
 import Home from "../pages/Home/Home";
 import MembershipLayout from "../pages/Layouts/MembershipLayout";
-import IndexMembership from "../pages/memberships/IndexMembership";
-import Login from "../pages/memberships/Login";
-import Register from "./../pages/memberships/Register";
+import IndexMembership from "../pages/membership/IndexMembership";
+import Login from "../pages/membership/Login";
+import Register from "./../pages/membership/Register";
 import { Settings } from "../pages/Settings";
 import { useRedux } from "../hooks/useRedux";
 import { NotFound } from "../pages/NotFound";
 import { AnimatePresence } from "framer-motion";
 import { AddPost } from "../pages/AddPost";
-import { PostDetails } from "../pages/PostDetails";
+import PostDetails from "../pages/PostDetails";
 import { AllPosts } from "../pages/AllPosts";
+import { Loading } from "../components/Loading";
 
 const Routes = () => {
   const { user } = useRedux();
@@ -23,6 +24,8 @@ const Routes = () => {
         <Route path="/" element={<Home />} />
         <Route path="/allposts" element={<AllPosts />} />
         <Route path="post/:title" element={<PostDetails />} />
+        <Route path="loading" element={<Loading />} />
+
         {user ? (
           <>
             <Route path="/settings" element={<Settings />} />

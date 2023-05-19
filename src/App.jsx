@@ -1,15 +1,13 @@
-import React, { useEffect } from "react";
+import React, { memo } from "react";
 import { useState } from "react";
 import Navbar from "./components/Navbar";
 import { FiMenu } from "./assets/icon";
 import Routes from "./routes/Routes";
-
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useRedux } from "./hooks/useRedux";
 
 const App = () => {
-  const { user } = useRedux();
+  console.count('app rendered')
   const [showMenu, setShowMenu] = useState(true)
 
   return (
@@ -19,7 +17,7 @@ const App = () => {
         onClick={() => setShowMenu(!showMenu)}
         className="fixed z-50 right-6 top-6 cursor-pointer"
 
-             
+
       >
         <FiMenu color="white" size={30} />
       </div>
@@ -29,4 +27,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default memo(App);

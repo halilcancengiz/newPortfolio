@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { Tooltip } from "antd";
 import { useTechnologyList } from "../hooks/useTechnologyList";
 
+
+
+// optimize
 function Technologies() {
   // hooks
   const allTechnologieList = useTechnologyList();
   // states
   const [currentTechnologie] = useState(allTechnologieList);
-  const [currentUrl, setCurrentUrl] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [width, setWidth] = useState(window.innerWidth);
 
@@ -144,4 +146,4 @@ function Technologies() {
   );
 }
 
-export default Technologies;
+export default memo(Technologies);

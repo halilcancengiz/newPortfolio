@@ -26,6 +26,7 @@
     "react-syntax-highlighter": "^15.5.0",
     "react-toastify": "^9.1.2",
     "remark-gfm": "^3.0.1",
+    "spinners-react": "^1.0.7",
     "uuid": "^9.0.0"
   },
   "devDependencies": {

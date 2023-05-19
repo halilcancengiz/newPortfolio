@@ -1,24 +1,26 @@
-import React, { useEffect } from "react";
+import React, { memo } from "react";
 import codetyping from "../../assets/images/codetyping.png";
-import BlogCard from "../../components/BlogCard";
 import Technologies from "../../components/Technologies";
 import Projects from "../../components/Projects";
 import Footer from "../../components/Footer";
-import { useRedux } from "../../hooks/useRedux";
 import SlideAnimation from "../../components/motion/SlideAnimation";
-import { Empty } from "antd";
-import { getPosts } from "../../services/firebase/firebase";
+import { Helmet } from "react-helmet";
+import BlogCardContainer from "../../components/BlogCardContainer";
 
 const Home = () => {
-  const { posts } = useRedux();
-  
-  useEffect(() => {
-    getPosts(); 
-    console.log(posts);
-  }, []);
-
+  console.count("home rendered");
   return (
     <SlideAnimation>
+
+      <Helmet>
+        <title>Ana Sayfa</title>
+        <meta name="description" content="Sayfa açıklaması buraya gelecek" />
+        <meta name="keywords" content="frontend, geliştirme, öğrenme, tasarım, paylaşım, javascript, react, html, css, bootstrap, tailwindcss" />
+        <html lang="tr" />
+        <link rel="canonical" href={window.location.href} />
+        <meta name="robots" content="index, follow" />
+      </Helmet>
+
       <div
         id="home"
         className="min-h-screen flex items-center justify-center flex-col text-white "
@@ -58,24 +60,10 @@ const Home = () => {
             style={{ maxWidth: "1350px" }}
             className={`min-h-screen w-full mx-auto items-center grid lg:px-0 xs:px-5 gap-5 xs:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 relative`}
           >
-            <div className="col-span-full">
-              {posts && posts.length > 0 ? (
-                posts
-                  .slice()
-                  .reverse()
-                  .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-                  .slice(0, 3)
-                  .map((post) => (
-                    <BlogCard key={post.postId} post={post} />
-                  ))
-              ) : (
-                <Empty description="Henüz makale paylaşılmadı."/>
-              )}
-            </div>
+            <BlogCardContainer />
           </div>
         </section>
         <Projects />
-        {/* <div className="bg-blue-400 h-96 w-full"></div> */}
         <Technologies />
         <Footer />
       </div>
@@ -83,4 +71,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default memo(Home);

@@ -22,11 +22,9 @@ body,
 
 .glassmorphism {
   /* background: rgba(255, 255, 255, 0.1); */
-  background: linear-gradient(
-    200deg,
-    rgba(29, 144, 244, 0.2),
-    rgba(29, 144, 244, 0.5)
-  );
+  background: linear-gradient(200deg,
+      rgba(29, 144, 244, 0.2),
+      rgba(29, 144, 244, 0.5));
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(5px);
@@ -81,6 +79,7 @@ body,
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .header-stroke {
   background-clip: text;
   -webkit-text-stroke-color: transparent;
@@ -135,6 +134,7 @@ body,
 pre {
   overflow-x: hidden !important;
 }
+
 pre div {
   background: #32364a !important;
 }
@@ -142,42 +142,93 @@ pre div {
 .border-image-left-to-right {
   border-image: linear-gradient(to right, #1d90f4, #b3ffae) 1;
 }
+
 .border-image-right-to-left {
   border-image: linear-gradient(to right, #b3ffae, #1d90f4) 1;
 }
 
 .hljs-attr {
-  color: #1d90f4!;
+  color: #1d90f4 !;
 }
+
 .ant-empty-description {
   color: white !important;
 }
+
 .ant-drawer-content-wrapper {
   width: 450px !important;
 }
+
 .ant-collapse-header-text,
 .ant-collapse-expand-icon {
   color: white;
 }
+
 .ant-collapse-item {
   border: none !important;
   overflow: hidden;
 }
+
 .ant-collapse-content {
   border: none !important;
   border-bottom-left-radius: 16px !important;
   border-bottom-right-radius: 16px !important;
   color: white !important;
 
-    /* background: rgba(255, 255, 255, 0.1); */
-    background: linear-gradient(
-      200deg,
+  /* background: rgba(255, 255, 255, 0.1); */
+  background: linear-gradient(200deg,
       rgba(29, 144, 244, 0.4),
-      rgba(29, 144, 244, 0.4)
-    )!important;
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+      rgba(29, 144, 244, 0.4)) !important;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
+
+.ant-modal-content {
+  padding: 0 !important;
+}
+
+.ant-modal-title {
+  padding: 20px 24px !important;
+  color: #355B89 !important;
+  text-transform: uppercase;
+}
+
+.ant-modal-body {
+  padding: 0 !important;
+}
+
+.ant-modal-footer {
+  padding: 20px 24px !important;
+}
+
+.ant-btn-primary {
+  background-color: #355B89;
+}
+
+.ant-btn-primary:hover {
+  background-color: #355B89 !important;
+}
+
+.ant-btn-default {
+  background-color: #355B89;
+  color: white;
+  border: none !important;
+}
+
+.ant-btn-default:hover {
+  background-color: #355B89 !important;
+  color: white !important;
+  border: none !important;
+}
+
+.leading-comment {
+  line-height: 17px !important;
+}
+
+.ant-drawer-body {
+  padding: 15px !important;
+}
+
 
 @media (max-width: 500px) {
   .ant-drawer-content-wrapper {
