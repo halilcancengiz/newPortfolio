@@ -1,13 +1,13 @@
 import { Collapse } from "antd";
-import { useRedux } from "../hooks/useRedux";
 import { useEffect, useState } from "react";
 import { getPosts } from "../services/firebase/firebase";
 import { NavLink } from "react-router-dom";
 import SlideAnimation from "../components/motion/SlideAnimation";
+import { shallowEqual, useSelector } from "react-redux";
 const { Panel } = Collapse;
 
 export const AllPosts = () => {
-  const { posts } = useRedux();
+  const posts = useSelector(state => state.posts.allPosts, shallowEqual);
   const [search, setSearch] = useState("");
   const [filteredList,setFilteredList]=useState(posts ?? null)
 

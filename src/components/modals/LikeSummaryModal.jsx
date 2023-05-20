@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
-import { Button, Modal } from 'antd';
+import React, { useState, memo } from 'react';
+import { Modal } from 'antd';
 import { FaLaughBeam, BsLightbulbFill, AiFillLike, AiFillHeart } from "../../assets/icon"
 import useTypeIcon from '../../hooks/useTypeIcon';
 
 
-export const LikeSummaryModal = ({ postComments, count, commentId }) => {
-
+const LikeSummaryModal = ({ postComments, count, commentId }) => {
+    console.count('LikeSummaryModal')
     const [isModalOpen, setIsModalOpen] = useState(false);
+
     const filteredComments = postComments.filter(x => x.commentId === commentId)
+
     const showModal = () => {
         setIsModalOpen(true);
     };
@@ -56,3 +58,4 @@ export const LikeSummaryModal = ({ postComments, count, commentId }) => {
         </>
     )
 }
+export default memo(LikeSummaryModal);

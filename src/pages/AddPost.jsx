@@ -8,9 +8,10 @@ import { addPost, addPostImageToStorage } from "../services/firebase/firebase";
 import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { shallowEqual, useSelector } from "react-redux";
 
 export const AddPost = () => {
-  const { user } = useRedux();
+  const user = useSelector(state => state.user.value, shallowEqual);
   const navigate = useNavigate();
 
   const [postImage, setPostImage] = useState(null);

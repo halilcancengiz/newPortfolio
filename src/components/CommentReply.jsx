@@ -3,6 +3,7 @@ import { SlDislike, SlLike } from "../assets/icon"
 import author from "../assets/images/author.jpeg"
 
 export const CommentReply = ({ isLoggedIn }) => {
+    console.count('CommentReply')
     const [showAllText, setShowAllText] = useState(false)
     const likesCount = 20
     const text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus dolorum enim debitis. Assumenda ex sunt dolore iure totam accusantium, possimus ullam consequatur odit nam officia explicabo expedita! Provident laudantium facilis recusandae, cum minima sequi? Necessitatibus dicta cupiditate dolore facere aliquid, omnis aut officia, unde aliquam corrupti inventore quae ipsam quis eveniet suscipit architecto sapiente alias consequatur dolor molestiae non fuga. Fugiat optio aliquid sunt voluptatem totam aspernatur odit illo voluptas natus perspiciatis velit provident, magnam aliquam eum vero voluptates suscipit quaerat incidunt nobis quam? Similique eligendi eos deserunt odit modi non laborum autem harum esse quis, nesciunt itaque veritatis quidem."

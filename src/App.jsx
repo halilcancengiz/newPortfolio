@@ -7,8 +7,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
-  console.count('app rendered')
-  const [showMenu, setShowMenu] = useState(true)
+  console.count('1-app rendered')
+  const [showMenu, setShowMenu] = useState(false)
 
   return (
     <div className="App bg-[#1F2125] relative font-poppins">
@@ -16,8 +16,6 @@ const App = () => {
       <div
         onClick={() => setShowMenu(!showMenu)}
         className="fixed z-50 right-6 top-6 cursor-pointer"
-
-
       >
         <FiMenu color="white" size={30} />
       </div>

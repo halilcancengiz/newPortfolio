@@ -4,16 +4,17 @@ import { CommentReply } from "./CommentReply";
 import { useEffect } from "react";
 import { RiSendPlaneFill } from "../assets/icon"
 import { dateTimeFormat } from "../utils/dateTimeFormatHelper";
-import { addLike } from "../services/firebase/firebase";
+import { addLike, removeLike } from "../services/firebase/firebase";
 import { FaLaughBeam, BsLightbulbFill, AiFillLike, AiFillHeart } from "../assets/icon"
 import { Tooltip } from "antd";
-import { LikeSummaryModal } from "./modals/LikeSummaryModal";
+import LikeSummaryModal from "./modals/LikeSummaryModal";
 import useTypeIcon from "../hooks/useTypeIcon";
+import { likeInformationColor } from "../utils/likeInformationColor";
 
 const Comment = ({ isVisible, isLoggedIn, detail, user, postComments }) => {
-
-  console.count('comment rendered')
   
+  console.count('Comment')
+
   const [showAddReplyArea, setShowAddReplyArea] = useState(false)
   const [showAllText, setShowAllText] = useState(false)
   const [showReply, setShowReply] = useState(false)
@@ -30,8 +31,22 @@ const Comment = ({ isVisible, isLoggedIn, detail, user, postComments }) => {
     setShowAddReplyArea(false)
   };
 
-  const increaseLike = (commentId, likeType) => {
+  const updateLike = (commentId, likeType) => {
     addLike(detail.commentId, user.uid, likeType)
+  }
+
+  const handleLikeAction = (commentId, likeType) => {
+
+    const currentLikeType = detail.likes.find(like => like.id === user.uid)?.type;
+
+    if (detail.likes.some(like => like.id === user.uid)) {
+      removeLike(commentId, user.uid, currentLikeType)
+
+    } else {
+      addLike(commentId, user.uid, likeType)
+
+    }
+
   }
 
   useEffect(() => {
@@ -104,13 +119,13 @@ const Comment = ({ isVisible, isLoggedIn, detail, user, postComments }) => {
               {isLoggedIn && (
                 <div className="flex gap-2">
                   <button className="group relative  cursor-pointer text-gray-500 transition-all duration-300">
-                    <div onClick={() => increaseLike(detail.commentId, "like")} className="flex items-center gap-1">
+                    <div onClick={() => handleLikeAction(detail.commentId, "like")} className="flex items-center gap-1">
                       {
                         user.uid && detail.likes.find(x => x.id === user.uid) ? (
                           detail.likes.filter(x => x.id === user.uid).map(c => (
                             <React.Fragment key={c.id}>
                               {useTypeIcon(c.type, 16)}
-                              <span>beğen</span>
+                              <span className={`${likeInformationColor(c.type)}`}>{c.type}</span>
                             </React.Fragment>
                           ))
                         ) : (
@@ -124,25 +139,25 @@ const Comment = ({ isVisible, isLoggedIn, detail, user, postComments }) => {
                     <div style={{ boxShadow: "0 0 5px gray" }} className="bg-gray-50 rounded-md h-8 hidden  absolute bottom-5 right-[50%] translate-x-[50%] group-hover:flex transition-all duration-500 items-center gap-3 px-3 py-1 ">
 
                       <Tooltip title="Beğen">
-                        <div onClick={() => increaseLike(detail.commentId, "like")} className="flex grow items-center justify-center h-full">
+                        <div onClick={() => updateLike(detail.commentId, "like")} className="flex grow items-center justify-center h-full">
                           <AiFillLike color="#6FC276" size={20} className="text-black hover:drop-shadow-like  hover:scale-[150%] transition-all duration-500 h-full" />
                         </div>
                       </Tooltip>
 
                       <Tooltip title="Harika">
-                        <div onClick={() => increaseLike(detail.commentId, "awesome")} className="flex grow items-center justify-center h-full">
+                        <div onClick={() => updateLike(detail.commentId, "awesome")} className="flex grow items-center justify-center h-full">
                           <AiFillHeart color="#C53F3F" size={20} className="text-black hover:drop-shadow-like hover:scale-[150%] transition-all duration-500 h-full" />
                         </div>
                       </Tooltip>
 
                       <Tooltip title="Bilgi verici">
-                        <div onClick={() => increaseLike(detail.commentId, "informative")} className="flex grow items-center justify-center h-full">
+                        <div onClick={() => updateLike(detail.commentId, "informative")} className="flex grow items-center justify-center h-full">
                           <BsLightbulbFill color="orange" size={20} className="text-black hover:drop-shadow-like hover:scale-[150%] transition-all duration-500 h-full" />
                         </div>
                       </Tooltip>
 
                       <Tooltip title="Eğlenceli">
-                        <div onClick={() => increaseLike(detail.commentId, "funny")} className="flex grow items-center justify-center h-full">
+                        <div onClick={() => updateLike(detail.commentId, "funny")} className="flex grow items-center justify-center h-full">
                           <FaLaughBeam color="#4282EE" size={20} className="text-black hover:drop-shadow-like hover:scale-[150%] transition-all duration-500 h-full" />
                         </div>
                       </Tooltip>

@@ -3,11 +3,12 @@ import { getPosts } from '../services/firebase/firebase';
 import { useRedux } from '../hooks/useRedux';
 import { Empty } from 'antd';
 import BlogCard from './BlogCard';
+import { useSelector } from 'react-redux';
 
 const BlogCardContainer = () => {
     console.count('BlogCardContainer');
 
-    const { posts } = useRedux();
+    const posts = useSelector(state => state.posts.allPosts);
 
     const fetchData = useCallback(async () => {
         await getPosts();
@@ -22,7 +23,7 @@ const BlogCardContainer = () => {
             <BlogCard key={post.postId} post={post} />
         ));
     }, [posts]);
-    
+
     return (
         <div className="col-span-full">
             {postsList.length > 0 ? (

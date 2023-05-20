@@ -1,20 +1,21 @@
-import React, { useEffect, useState, memo } from "react";
+import React, { useEffect, memo } from "react";
 import ReactMarkdown from "react-markdown";
 import { useParams } from "react-router-dom";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight";
 import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import remarkGfm from "remark-gfm";
-import { useRedux } from "../hooks/useRedux";
 import { getPostById } from "../services/firebase/firebase";
-import { CommentsContainer } from "../components/CommentsContainer";
+import CommentsContainer from "../components/CommentsContainer";
 import { Helmet } from "react-helmet";
+import { shallowEqual, useSelector } from "react-redux";
 
 
 
 const PostDetails = () => {
   // console.count("PostDetails rendered"); // 4 kez render ediliyor
   const { title } = useParams();
-  const { currentPost, user } = useRedux();
+  const currentPost = useSelector(state => state.currentPost.value, shallowEqual)
+  const user = useSelector(state => state.user.value, shallowEqual);
 
   useEffect(() => {
     if (title) {

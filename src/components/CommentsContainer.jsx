@@ -1,14 +1,17 @@
 import { Drawer } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 import { FaComments } from "../assets/icon";
-import  Comment  from "./Comment";
+import Comment from "./Comment";
 import { AddComment } from "./AddComment";
-import { useRedux } from "../hooks/useRedux"
 import { NavLink } from "react-router-dom";
 import { getAllCommentsForPost } from "../services/firebase/firebase";
+import { shallowEqual, useSelector } from "react-redux";
 
-export const CommentsContainer = ({ isLoggedIn, postId }) => {
-  const { user, postComments } = useRedux()
+const CommentsContainer = ({ isLoggedIn, postId }) => {
+  console.count("CommentsContainer");
+  const postComments = useSelector(state => state.postComments.value, shallowEqual);
+  const user = useSelector(state => state.user.value, shallowEqual);
+
   const [open, setOpen] = useState(false);
 
   const showDrawer = () => {
@@ -55,3 +58,5 @@ export const CommentsContainer = ({ isLoggedIn, postId }) => {
     </>
   );
 };
+
+export default memo(CommentsContainer);

@@ -4,7 +4,7 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, on
 import { toast } from "react-toastify";
 import { store } from "../../app/store";
 import { setUser } from "../../features/user";
-import { addDoc, collection, getDocs, getFirestore, increment, onSnapshot, query, updateDoc, where, doc, arrayUnion, getDoc } from "firebase/firestore";
+import { addDoc, collection, getDocs, getFirestore, increment, onSnapshot, query, updateDoc, where, doc, arrayUnion, getDoc, arrayRemove } from "firebase/firestore";
 import { setAllPosts } from "../../features/allPosts";
 import { setCurrentPost } from "../../features/currentPost";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
@@ -318,33 +318,13 @@ export const addLike = async (commentId, userId, type) => {
         toast.error(error.message);
     }
 };
-export const removeLike = async (commentId, userId) => {
+export const removeLike = async (commentId, userId, type) => {
     try {
         await updateDoc(doc(db, "comments", commentId), {
-            likes: arrayRemove(userId)
+            likes: arrayRemove({ id: userId, type })
         });
     } catch (error) {
         toast.error(error.message)
     }
-}
+};
 
-export const addDislike = async (commentId, userId) => {
-    try {
-        await updateDoc(doc(db, "movie-comments", commentId), {
-            dislikes: arrayUnion(`${userId}`)
-        }
-        )
-    } catch (error) {
-        toast.error(error.message)
-    }
-}
-
-export const removeDislike = async (commentId, userId) => {
-    try {
-        await updateDoc(doc(db, "movie-comments", commentId), {
-            dislikes: arrayRemove(userId)
-        });
-    } catch (error) {
-        toast.error(error.message)
-    }
-}

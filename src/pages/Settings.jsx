@@ -1,12 +1,10 @@
 import React from "react";
-import { useRedux } from "../hooks/useRedux";
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { shallowEqual, useSelector } from "react-redux";
+
 
 export const Settings = () => {
-  const { user } = useRedux();
-  console.log(user);
-
+  console.count('settings')
+  const posts = useSelector(state => state.posts.allPosts, shallowEqual);
 
   return (
     <div className="w-full text-center text-white py-5 flex flex-col min-w-screen min-h-screen items-center justify-center">
