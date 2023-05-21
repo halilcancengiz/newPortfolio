@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { RiSendPlaneFill } from "../assets/icon"
 import { Tooltip } from "antd";
-import { toast } from "react-toastify";
 import { addComment } from "../services/firebase/firebase";
 
 export const AddComment = ({ user, postId }) => {
@@ -12,7 +11,6 @@ export const AddComment = ({ user, postId }) => {
     if (commentValue) {
       const response = await addComment(user, commentValue.trim(), postId);
       setCommentValue("");
-      toast.success("Yorum başarıyla gönderildi.");
     }
   };
   return (

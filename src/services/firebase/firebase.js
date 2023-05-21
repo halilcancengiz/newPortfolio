@@ -273,6 +273,18 @@ export const deleteComment = () => {
     }
 }
 
+export const addReplyText = async (commentId, userId, content, replyId) => {
+    const date = new Date();
+    try {
+        await updateDoc(doc(db, "comments", commentId), {
+            replies: arrayUnion({ author: userId, content, likes: [], replyId, createdAt: String(date), })
+        }
+        )
+    } catch (error) {
+        toast.error(error.message)
+    }
+}
+
 export const getAllCommentsForPost = async (postId) => {
     try {
         const querySnapshot = await getDocs(query(collection(db, "comments"), where("postId", "==", postId)));
@@ -318,6 +330,7 @@ export const addLike = async (commentId, userId, type) => {
         toast.error(error.message);
     }
 };
+
 export const removeLike = async (commentId, userId, type) => {
     try {
         await updateDoc(doc(db, "comments", commentId), {

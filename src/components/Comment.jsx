@@ -4,19 +4,22 @@ import { CommentReply } from "./CommentReply";
 import { useEffect } from "react";
 import { RiSendPlaneFill } from "../assets/icon"
 import { dateTimeFormat } from "../utils/dateTimeFormatHelper";
-import { addLike, removeLike } from "../services/firebase/firebase";
+import { addLike, addReplyText, removeLike } from "../services/firebase/firebase";
 import { FaLaughBeam, BsLightbulbFill, AiFillLike, AiFillHeart } from "../assets/icon"
 import { Tooltip } from "antd";
 import LikeSummaryModal from "./modals/LikeSummaryModal";
 import useTypeIcon from "../hooks/useTypeIcon";
 import { likeInformationColor } from "../utils/likeInformationColor";
+import { toast } from "react-toastify";
+import { v4 as uuidv4 } from "uuid";
 
 const Comment = ({ isVisible, isLoggedIn, detail, user, postComments }) => {
-  
+
 
   const [showAddReplyArea, setShowAddReplyArea] = useState(false)
   const [showAllText, setShowAllText] = useState(false)
   const [showReply, setShowReply] = useState(false)
+  const [replyText, setReplyText] = useState("")
 
   const handleShowReply = () => {
     setShowReply(true)
@@ -26,8 +29,14 @@ const Comment = ({ isVisible, isLoggedIn, detail, user, postComments }) => {
     setShowAddReplyArea(true)
   }
 
-  const sendReplyContent = () => {
-    setShowAddReplyArea(false)
+  const sendReplyContent = (commentId, userId) => {
+    if (replyText.length <= 0) {
+      toast.warning("Lütfen alanı doldurun!")
+    } else {
+      addReplyText(commentId, userId, replyText, uuidv4())
+      setShowAddReplyArea(false)
+      setReplyText("")
+    }
   };
 
   const updateLike = (commentId, likeType) => {
@@ -35,29 +44,20 @@ const Comment = ({ isVisible, isLoggedIn, detail, user, postComments }) => {
   }
 
   const handleLikeAction = (commentId, likeType) => {
-
     const currentLikeType = detail.likes.find(like => like.id === user.uid)?.type;
-
     if (detail.likes.some(like => like.id === user.uid)) {
       removeLike(commentId, user.uid, currentLikeType)
-
     } else {
       addLike(commentId, user.uid, likeType)
-
     }
-
   }
 
   useEffect(() => {
-
     if (!isVisible) {
       setShowReply(false)
     }
-
   }, [isVisible])
 
-
-  const text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus dolorum enim debitis. Assumenda ex sunt dolore iure totam accusantium, possimus ullam consequatur odit nam officia explicabo expedita! Provident laudantium facilis recusandae, cum minima sequi? Necessitatibus dicta cupiditate dolore facere aliquid, omnis aut officia, unde aliquam corrupti inventore quae ipsam quis eveniet suscipit architecto sapiente alias consequatur dolor molestiae non fuga. Fugiat optio aliquid sunt voluptatem totam aspernatur odit illo voluptas natus perspiciatis velit provident, magnam aliquam eum vero voluptates suscipit quaerat incidunt nobis quam? Similique eligendi eos deserunt odit modi non laborum autem harum esse quis, nesciunt itaque veritatis quidem."
   return (
     <div className="border-t py-2 border-gray-300">
       <div className="flex items-start my-2">
@@ -82,10 +82,7 @@ const Comment = ({ isVisible, isLoggedIn, detail, user, postComments }) => {
                   </div>
                 ) : ""
               }
-
             </div>
-
-
 
             <span className="text-gray-500 text-xs italic">
               {dateTimeFormat(detail.createdAt)}
@@ -171,13 +168,19 @@ const Comment = ({ isVisible, isLoggedIn, detail, user, postComments }) => {
             </div>
           </div>
 
+          {
+            showReply && <div onClick={() => setShowReply(false)} className="text-gray-500 w-full justify-end flex cursor-pointer">cevapları gizle</div>
+          }
+
+
           <div className={`w-full mt-2 ${showAddReplyArea ? "block" : "hidden"} transition-transform duration-500`}>
 
+
             <div className="w-full flex items-center border-2 rounded-lg overflow-hidden">
-              <input id="replyArea" className="w-full outline-none h-10 px-2" type="text" placeholder="cevapla..." />
-              <div onClick={sendReplyContent}>
+              <input onChange={(e) => setReplyText(e.target.value)} value={replyText} id="replyArea" className="w-full outline-none h-10 px-2" type="text" placeholder="cevapla..." />
+              <button onClick={() => sendReplyContent(detail.commentId, user.uid)}>
                 <RiSendPlaneFill size={20} className="cursor-pointer mr-2" />
-              </div>
+              </button>
             </div>
             <span onClick={() => setShowAddReplyArea(false)} className="text-gray-500 w-full justify-end flex cursor-pointer">gizle</span>
           </div>
@@ -190,9 +193,9 @@ const Comment = ({ isVisible, isLoggedIn, detail, user, postComments }) => {
             <div className="w-full h-7 flex items-center text-gray-500 cursor-pointer justify-end">
               {detail.replies.length} cevabın tümünü gör
             </div>
-          ) : detail.replies.length > 0 && showReply ? (
-            <CommentReply isLoggedIn={isLoggedIn} />
-          ) : null
+          ) : detail.replies.length > 0 && showReply ? detail.replies.map((reply, index) => (
+            <CommentReply key={index} isLoggedIn={isLoggedIn} replyDetail={reply} />
+          )) : null
         }
       </div>
     </div>

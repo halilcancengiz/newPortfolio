@@ -2,10 +2,8 @@ import React, { useState } from 'react'
 import { SlDislike, SlLike } from "../assets/icon"
 import author from "../assets/images/author.jpeg"
 
-export const CommentReply = ({ isLoggedIn }) => {
+export const CommentReply = ({ isLoggedIn, replyDetail }) => {
     const [showAllText, setShowAllText] = useState(false)
-    const likesCount = 20
-    const text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus dolorum enim debitis. Assumenda ex sunt dolore iure totam accusantium, possimus ullam consequatur odit nam officia explicabo expedita! Provident laudantium facilis recusandae, cum minima sequi? Necessitatibus dicta cupiditate dolore facere aliquid, omnis aut officia, unde aliquam corrupti inventore quae ipsam quis eveniet suscipit architecto sapiente alias consequatur dolor molestiae non fuga. Fugiat optio aliquid sunt voluptatem totam aspernatur odit illo voluptas natus perspiciatis velit provident, magnam aliquam eum vero voluptates suscipit quaerat incidunt nobis quam? Similique eligendi eos deserunt odit modi non laborum autem harum esse quis, nesciunt itaque veritatis quidem."
     return (
         <div className="flex items-start text-xs mt-5 pl-5">
             <div className="mr-3 flex">
@@ -14,7 +12,7 @@ export const CommentReply = ({ isLoggedIn }) => {
                 </div>
             </div>
 
-            <div className="flex items-start flex-col ">
+            <div className="flex items-start flex-col  w-full">
 
                 <div className="font-medium flex">
                     <span>hllcncngz</span>
@@ -25,11 +23,18 @@ export const CommentReply = ({ isLoggedIn }) => {
                     </div>
                 </div>
 
-                <div onClick={() => setShowAllText(!showAllText)} className={`${showAllText ? "" : "line-clamp-3"} font-light leading-comment`}>
-                    {text}
+                <div onClick={() => setShowAllText(!showAllText)} className={`xs:text-xs sm:text-sm  overflow-hidden font-light leading-comment my-2 flex items-center justify-center`}>
+                    <p className={`${showAllText ? "" : "line-clamp-3"} w-full flex break-all`}>
+                        {replyDetail.content.split(' ').map((word, index, array) => (
+                            <React.Fragment key={index}>
+                                {word}
+                                {index !== array.length - 1 && ' '}
+                            </React.Fragment>
+                        ))}
+                    </p>
                 </div>
 
-                <div className="flex items-center mt-2 w-full">
+                {/* <div className="flex items-center mt-2 w-full ">
                     <div className="flex w-full justify-between ">
                         {
                             isLoggedIn &&
@@ -46,7 +51,7 @@ export const CommentReply = ({ isLoggedIn }) => {
 
                         <div className="font-medium text-xs flex justify-end w-full">{likesCount}<span className="ml-1">beğeni</span></div>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     )
