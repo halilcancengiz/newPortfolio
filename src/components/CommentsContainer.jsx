@@ -5,12 +5,28 @@ import Comment from "./Comment";
 import { AddComment } from "./AddComment";
 import { NavLink } from "react-router-dom";
 import { getAllCommentsForPost } from "../services/firebase/firebase";
-import { shallowEqual, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { createSelector } from "reselect";
 
 const CommentsContainer = ({ isLoggedIn, postId }) => {
-  console.count("CommentsContainer");
-  const postComments = useSelector(state => state.postComments.value, shallowEqual);
-  const user = useSelector(state => state.user.value, shallowEqual);
+
+  // reselect
+  const selectPostComments = state => state.postComments.value;
+  const selectUser = state => state.user.value;
+
+  const userSelector = createSelector(
+    selectUser,
+    user => user
+  );
+
+  const postCommentsSelector = createSelector(
+    selectPostComments,
+    postComments => postComments
+  );
+
+  const postComments = useSelector(postCommentsSelector);
+  const user = useSelector(userSelector);
+
 
   const [open, setOpen] = useState(false);
 

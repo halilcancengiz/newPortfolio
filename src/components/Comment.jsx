@@ -13,7 +13,6 @@ import { likeInformationColor } from "../utils/likeInformationColor";
 
 const Comment = ({ isVisible, isLoggedIn, detail, user, postComments }) => {
   
-  console.count('Comment')
 
   const [showAddReplyArea, setShowAddReplyArea] = useState(false)
   const [showAllText, setShowAllText] = useState(false)

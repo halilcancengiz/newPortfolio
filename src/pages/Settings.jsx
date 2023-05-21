@@ -3,8 +3,7 @@ import { shallowEqual, useSelector } from "react-redux";
 
 
 export const Settings = () => {
-  console.count('settings')
-  const posts = useSelector(state => state.posts.allPosts, shallowEqual);
+  const user = useSelector(state => state.user.value, shallowEqual);
 
   return (
     <div className="w-full text-center text-white py-5 flex flex-col min-w-screen min-h-screen items-center justify-center">

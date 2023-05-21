@@ -12,7 +12,6 @@ import { shallowEqual, useSelector } from "react-redux";
 
 
 const PostDetails = () => {
-  // console.count("PostDetails rendered"); // 4 kez render ediliyor
   const { title } = useParams();
   const currentPost = useSelector(state => state.currentPost.value, shallowEqual)
   const user = useSelector(state => state.user.value, shallowEqual);

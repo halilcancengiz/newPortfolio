@@ -5,7 +5,6 @@ import useTypeIcon from '../../hooks/useTypeIcon';
 
 
 const LikeSummaryModal = ({ postComments, count, commentId }) => {
-    console.count('LikeSummaryModal')
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const filteredComments = postComments.filter(x => x.commentId === commentId)

@@ -15,7 +15,6 @@ import { Tooltip } from "antd";
 import { useSelector } from "react-redux";
 
 const Navbar = ({ showMenu }) => {
-  console.count('2-navbar')
   const user = useSelector(state => state.user.value);
   const navigate = useNavigate();
 

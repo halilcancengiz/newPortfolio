@@ -8,7 +8,6 @@ import { Helmet } from "react-helmet";
 import BlogCardContainer from "../../components/BlogCardContainer";
 
 const Home = () => {
-  console.count("home rendered");
   return (
     <SlideAnimation>
 

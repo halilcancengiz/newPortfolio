@@ -1,14 +1,23 @@
 import React, { memo, useCallback, useEffect, useMemo } from 'react';
 import { getPosts } from '../services/firebase/firebase';
-import { useRedux } from '../hooks/useRedux';
 import { Empty } from 'antd';
 import BlogCard from './BlogCard';
 import { useSelector } from 'react-redux';
+import { createSelector } from 'reselect';
 
 const BlogCardContainer = () => {
-    console.count('BlogCardContainer');
+    //reselect start
 
-    const posts = useSelector(state => state.posts.allPosts);
+    const selectAllPosts = state => state.posts.allPosts;
+
+    const postsSelector = createSelector(
+        selectAllPosts,
+        posts => posts
+    );
+
+    const posts = useSelector(postsSelector);
+
+    //reselect end
 
     const fetchData = useCallback(async () => {
         await getPosts();
@@ -16,7 +25,7 @@ const BlogCardContainer = () => {
 
     useEffect(() => {
         fetchData();
-    }, [fetchData]);
+    }, []);
 
     const postsList = useMemo(() => {
         return posts.map((post) => (

@@ -7,7 +7,6 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
-  console.count('1-app rendered')
   const [showMenu, setShowMenu] = useState(false)
 
   return (

@@ -9,7 +9,6 @@ import { calculateReadingTime } from "../utils/calculateReadingTimeHelper";
 
 
 const BlogCard = ({ post }) => {
-  console.count("blogcard rendered")
   const [image, setImage] = useState("");
   const { postId } = post;
 
