@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useMemo } from 'react';
+import React, { memo, useCallback, useEffect, useMemo, useRef } from 'react';
 import { getPosts } from '../services/firebase/firebase';
 import { Empty } from 'antd';
 import BlogCard from './BlogCard';
@@ -28,8 +28,8 @@ const BlogCardContainer = () => {
     }, []);
 
     const postsList = useMemo(() => {
-        return posts.map((post) => (
-            <BlogCard key={post.postId} post={post} />
+        return posts.slice(0, 3).map((post, index) => (
+            <BlogCard key={post.postId} post={post} index={index} />
         ));
     }, [posts]);
 

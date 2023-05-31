@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     value: JSON.parse(sessionStorage.getItem('user')) || null,
+    info: {}
 };
 
 export const user = createSlice({
@@ -11,8 +12,11 @@ export const user = createSlice({
         setUser: (state, action) => {
             state.value = action.payload;
         },
+        setInfo: (state, action) => {
+            state.info = action.payload
+        }
     },
 });
 
-export const { setUser } = user.actions
+export const { setUser, setInfo } = user.actions
 export default user.reducer;

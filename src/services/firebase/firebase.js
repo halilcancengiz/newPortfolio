@@ -1,13 +1,12 @@
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
 import { toast } from "react-toastify";
 import { store } from "../../app/store";
-import { setUser } from "../../features/user";
-import { addDoc, collection, getDocs, getFirestore, increment, onSnapshot, query, updateDoc, where, doc, arrayUnion, getDoc, arrayRemove } from "firebase/firestore";
+import { setInfo, setUser } from "../../features/user";
+import { addDoc, collection, getDocs, getFirestore, increment, onSnapshot, query, updateDoc, where, doc, arrayUnion, getDoc, arrayRemove, deleteDoc, setDoc } from "firebase/firestore";
 import { setAllPosts } from "../../features/allPosts";
 import { setCurrentPost } from "../../features/currentPost";
-import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { deleteObject, getDownloadURL, getMetadata, getStorage, ref, uploadBytes } from "firebase/storage";
 import { setPostComments } from "../../features/postComments";
 
 
@@ -21,7 +20,6 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const storage = getStorage(app);
@@ -148,6 +146,117 @@ onAuthStateChanged(auth, (user) => {
     }
 });
 
+// Kullanıcının bilgileri ekleme varsa güncelleme
+export const addAndUpdateUserInfo = async (fullName, birthday, gender, userId) => {
+    console.log("userId", userId);
+    try {
+        if (userId) {
+            const userRef = doc(db, "users", userId);
+            const userDoc = await getDoc(userRef);
+
+            if (userDoc.exists()) {
+                const updatedInfo = {};
+
+                if (fullName !== undefined && fullName !== "") {
+                    updatedInfo.fullName = fullName;
+                }
+
+                if (birthday !== undefined && birthday !== "") {
+                    updatedInfo.birthday = birthday;
+                }
+
+                if (gender !== undefined && gender !== "") {
+                    updatedInfo.gender = gender;
+                }
+
+                // Güncelleme yapmadan önce, her alanın değerinin tanımlı olduğundan emin olun
+                if (Object.keys(updatedInfo).length > 0) {
+                    await updateDoc(userRef, { ...updatedInfo, userId });
+                }
+            } else {
+                console.log("User does not exist. Creating a new document...");
+
+                const newUserInfo = {};
+
+                if (fullName !== undefined && fullName !== "") {
+                    newUserInfo.fullName = fullName;
+                }
+
+                if (birthday !== undefined && birthday !== "") {
+                    newUserInfo.birthday = birthday;
+                }
+
+                if (gender !== undefined && gender !== "") {
+                    newUserInfo.gender = gender;
+                }
+
+                await setDoc(userRef, { ...newUserInfo, userId });
+            }
+        } else {
+            console.error("Error addAndUpdateUserInfo: User ID is missing");
+        }
+    } catch (error) {
+        console.error("Error addAndUpdateUserInfo", error);
+    }
+};
+
+// ID ye göre kullanıcının bilgilerini getirme
+export const getUserById = (userId) => {
+    try {
+        const userRef = doc(db, "users", userId);
+
+        return onSnapshot(userRef, (userDoc) => {
+            if (userDoc.exists()) {
+                const userInfo = userDoc.data();
+                store.dispatch(setInfo(userInfo)); // setInfo eylemini tetikle ve userInfo'yi geç
+            } else {
+                store.dispatch(setInfo({})); // Kullanıcı belgesi yoksa boş bir obje olarak ayarla
+            }
+        }, (error) => {
+            console.error("Error getUserById", error);
+            store.dispatch(setInfo(null)); // Hata durumunda setInfo'yu null olarak ayarla
+        });
+    } catch (error) {
+        console.error("Error getUserById", error);
+        return null;
+    }
+};
+export const addUserImage = async (id, image) => {
+    if (!image) {
+        return; // Eğer image boşsa, güncelleme yapma
+    }
+
+    const imageRef = ref(storage, `user-images/${id}`);
+    try {
+        await getDownloadURL(imageRef);
+
+        // ID'ye ait bir resim zaten varsa, resmi güncelle
+        await deleteObject(imageRef); // Önceki resmi sil
+        await uploadBytes(imageRef, image); // Yeni resmi yükle
+    } catch (error) {
+        if (error.code === "storage/object-not-found") {
+            // ID'ye ait bir resim yoksa, yeni resmi ekle
+            await uploadBytes(imageRef, image);
+        } else {
+            console.error("Error addUserImage", error);
+        }
+    }
+};
+
+//Firebase storage dan postun fotoğrafını getirme
+export const getUserImage = async (id) => {
+    try {
+        const imageRef = ref(storage, `user-images/${id}`)
+        let imageURL = ""
+        await getDownloadURL(imageRef).then((result) => {
+            imageURL = result
+        })
+        return imageURL
+    } catch (error) {
+        return null
+    }
+}
+
 // Post ekleme
 export const addPost = async (post, user) => {
     const date = new Date();
@@ -177,14 +286,15 @@ export const getPosts = async () => {
         const postsCollection = collection(db, "posts");
         onSnapshot(postsCollection, (snapshot) => {
             const posts = snapshot.docs.map((doc) => doc.data());
-            store.dispatch(setAllPosts(posts));
+            const sortedPost = posts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+            store.dispatch(setAllPosts(sortedPost));
         });
     } catch (error) {
         console.error("Error getPosts", error);
     }
 };
 
-// id ye göre postu getirme
+// Id ye göre postu getirme
 export const getPostById = async (title) => {
     try {
         const querySnapshot = await getDocs(query(collection(db, "posts"), where("postTitle", "==", title.replace(/-/g, ' '))));
@@ -195,7 +305,7 @@ export const getPostById = async (title) => {
     }
 };
 
-// storage a postun fotoğrafını ekleme
+//Firebase storage a postun fotoğrafını ekleme
 export const addPostImageToStorage = async (id, image) => {
     const imageRef = ref(storage, `posts-images/${id}`);
     try {
@@ -205,7 +315,7 @@ export const addPostImageToStorage = async (id, image) => {
     }
 };
 
-// storage dan postun fotoğrafını getirme
+//Firebase storage dan postun fotoğrafını getirme
 export const getPostImageFromStorage = async (id) => {
     try {
         const imageRef = ref(storage, `posts-images/${id}`)
@@ -220,7 +330,7 @@ export const getPostImageFromStorage = async (id) => {
     }
 }
 
-// postun okunma sayısını güncelleme(arttırma)
+//Postun okunma sayısını güncelleme(arttırma)
 export const updateReadingCount = async (postId) => {
     try {
         const querySnapshot = await getDocs(query(collection(db, "posts"), where("postId", "==", postId)));
@@ -234,14 +344,15 @@ export const updateReadingCount = async (postId) => {
     }
 };
 
-
-export const addComment = async (user, commentContent, postId) => {
+//Yorum ekleme
+export const addComment = async (user, commentContent, postId, author) => {
     const date = new Date();
     try {
-        if (user) {
+        if (user && author !== "default") {
             await addDoc(collection(db, "comments"), {
                 postId,
-                author: user.uid,
+                author,
+                userId: user.uid,
                 createdAt: String(date),
                 content: commentContent,
                 replies: [],
@@ -250,34 +361,41 @@ export const addComment = async (user, commentContent, postId) => {
                 role: user.role
             });
         } else {
-            throw new Error("User is not authorized to add comment");
+            toast.error("Lütfen kullanıcı bilgilerini ayarlardan güncelleyin.");
         }
     } catch (error) {
         console.error("Error addComment", error);
     }
 }
 
-export const updateComment = () => {
+//Yorum güncelleme
+export const updateComment = async (commentId, content) => {
+    const date = new Date()
     try {
-
+        await updateDoc(doc(db, "comments", commentId), {
+            content,
+            updatedAt: String(date)
+        });
     } catch (error) {
-
+        toast.error(error.message)
     }
 }
 
-export const deleteComment = () => {
+//Yorum silme
+export const deleteComment = async (commentId) => {
     try {
-
+        await deleteDoc(doc(db, "comments", commentId));
     } catch (error) {
-
+        toast.error(error.message)
     }
 }
 
-export const addReplyText = async (commentId, userId, content, replyId) => {
+//Cevap ekleme
+export const addReply = async (commentId, userId, content, replyId) => {
     const date = new Date();
     try {
         await updateDoc(doc(db, "comments", commentId), {
-            replies: arrayUnion({ author: userId, content, likes: [], replyId, createdAt: String(date), })
+            replies: arrayUnion({ author: userId, content, replyId, createdAt: String(date), })
         }
         )
     } catch (error) {
@@ -285,6 +403,47 @@ export const addReplyText = async (commentId, userId, content, replyId) => {
     }
 }
 
+//Cevap güncelleme
+export const updateReply = async (commentId, reply, updatedContent) => {
+    try {
+        const docRef = doc(db, "comments", commentId);
+        const docSnapshot = await getDoc(docRef);
+        const updatedAt = new Date(); // Güncelleme zamanını al
+
+        if (docSnapshot.exists()) {
+            const commentData = docSnapshot.data();
+            const replies = commentData.replies || [];
+
+            const updatedReplies = replies.map((currentReply) => {
+                if (currentReply.replyId === reply.replyId) {
+                    return { ...currentReply, content: updatedContent, updatedAt: String(updatedAt) }; // updatedAt alanını güncelle
+                }
+                return currentReply;
+            });
+
+            await updateDoc(docRef, { replies: updatedReplies });
+
+        } else {
+            throw new Error("Belirtilen belge bulunamadı.");
+        }
+    } catch (error) {
+        toast.error(error.message);
+    }
+};
+
+
+//Cevap silme
+export const deleteReply = async (commentId, replyDetail) => {
+    try {
+        await updateDoc(doc(db, "comments", commentId), {
+            replies: arrayRemove(replyDetail)
+        });
+    } catch (error) {
+        toast.error(error.message)
+    }
+}
+
+// Gönderiye ait tüm yorumları getirme
 export const getAllCommentsForPost = async (postId) => {
     try {
         const querySnapshot = await getDocs(query(collection(db, "comments"), where("postId", "==", postId)));
@@ -307,6 +466,7 @@ export const getAllCommentsForPost = async (postId) => {
     }
 };
 
+// Yoruma aksiyon ekleme (like,funny,informative,awesome) veya güncelleme 
 export const addLike = async (commentId, userId, type) => {
     try {
         const commentRef = doc(db, "comments", commentId);
@@ -331,6 +491,7 @@ export const addLike = async (commentId, userId, type) => {
     }
 };
 
+// Yorumdan aksiyon kaldırma (like,funny,informative,awesome) kaldırma
 export const removeLike = async (commentId, userId, type) => {
     try {
         await updateDoc(doc(db, "comments", commentId), {

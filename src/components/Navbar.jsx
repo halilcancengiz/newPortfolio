@@ -47,12 +47,6 @@ const Navbar = ({ showMenu }) => {
 
         {user && (
           <>
-            <Tooltip title="Not Ekle" placement="right" color="#1D90F4">
-              <NavLink to="/" className="w-full py-2 flex items-center justify-center flex-col cursor-pointer transition duration-100 hover:scale-110">
-                <MdOutlineAddCircle size={20} className="transition-all duration-100" />
-              </NavLink>
-            </Tooltip>
-
             <Tooltip title="Ayarlar" placement="right" color="#1D90F4">
               <NavLink to="/settings" className="w-full py-2 flex items-center justify-center flex-col cursor-pointer transition duration-100 hover:scale-110">
                 <IoSettingsSharp size={20} className="transition-all duration-100" />

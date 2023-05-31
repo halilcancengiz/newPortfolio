@@ -34,7 +34,7 @@ const PostDetails = () => {
         {currentPost && (
           <ReactMarkdown
             key={currentPost.postId}
-            className="w-full h-full overflow-x-hidden overflow-auto p-10"
+            className="w-full h-full overflow-x-hidden overflow-auto p-10 "
             remarkPlugins={[remarkGfm]}
             children={currentPost.content}
             components={{
@@ -74,7 +74,7 @@ const PostDetails = () => {
 
               ),
               img: ({ node, ...props }) => (
-                <div className="mx-auto">
+                <div>
                   <img
                     className="mb-5 mx-auto max-w-[50%] object-contain"
                     {...props}

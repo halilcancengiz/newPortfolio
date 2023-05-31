@@ -37,3 +37,13 @@ export { FaLaughBeam } from 'react-icons/fa'; /*FaLaughBeam emoji */
 export { AiFillLike } from 'react-icons/ai'; /*FaLaughBeam emoji */
 export { BsLightbulbFill } from 'react-icons/bs'; /*FaLaughBeam emoji */
 export { AiFillHeart } from 'react-icons/ai'; /*FaLaughBeam emoji */
+export { TiTick } from 'react-icons/ti'; /*FaLaughBeam emoji */
+export { RxCross2 } from 'react-icons/rx'; /*FaLaughBeam emoji */
+export { MdFilterAltOff } from 'react-icons/md'; /*FaLaughBeam emoji */
+//Settings
+export { FaUserAlt } from 'react-icons/fa'; /*FaLaughBeam emoji */
+export { FaBirthdayCake } from 'react-icons/fa'; /*birth */
+export { BsGenderAmbiguous } from 'react-icons/bs'; /*birth */
+export { FaUserFriends } from 'react-icons/fa'; /*birth */
+export { BsCloudUploadFill } from 'react-icons/bs'; /*upload */
+export { BsImage } from 'react-icons/bs'; /*upload */

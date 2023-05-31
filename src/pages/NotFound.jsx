@@ -1,33 +1,21 @@
 import React from "react";
-import notFoundImage from "../assets/images/404.png";
+import notFoundImage from "../assets/images/notfound.png";
 import { NavLink } from "react-router-dom";
 import SlideAnimation from "../components/motion/SlideAnimation";
 
 export const NotFound = () => {
   return (
     <SlideAnimation>
-      <div
-        style={{
-          backgroundImage: `url(${notFoundImage})`,
-          backgroundColor: "#C53F3F",
-          backgroundSize: "contain",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
-        }}
-        className="min-w-screen min-h-screen font-mono flex items-center justify-center flex-col relative"
-      >
-        <div className="absolute bottom-16 flex items-center justify-center flex-col">
-          <h1 className="sm:text-5xl xs:text-3xl uppercase text-white transition-all duration-500">
-            Page Not Found
-          </h1>
-          <NavLink
-            className="cursor-pointer text-white sm:text-base xs:text-xs transition-all duration-500 font-bold border rounded-md p-2 mt-2 uppercase hover:bg-white hover:text-not-found-red "
-            to="/"
-          >
-            Back To Home Page
-          </NavLink>
+      <div className="w-full h-full flex items-center justify-center flex-col ">
+        <div className="flex items-center justify-center flex-col relative" >
+          <img className="max-w-[450px] w-full" src={notFoundImage} alt="" />
+        </div>
+        <div className="font-bold text-3xl flex items-center justify-center flex-col text-[#3C73AC] gap-3 " >
+          <span className="uppercase  xs:text-lg sm:text-2xl transition-all duration-500">Sayfa bulunamadı!</span>
+          <NavLink className="xs:text-base sm:text-lg font-normal animate-bounce ml-2 border p-1 px-5 border-[#3C73AC] rounded-lg hover:bg-[#3C73AC] transition-all duration-500 hover:text-[#CCE0F8]" to="/">Ana sayfaya dön</NavLink>
         </div>
       </div>
+
     </SlideAnimation>
   );
 };

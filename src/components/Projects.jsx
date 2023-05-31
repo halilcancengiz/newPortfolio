@@ -1,24 +1,37 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useProjectList } from "../hooks/useProjectList";
-
-
+import { motion, useInView } from "framer-motion";
 // optimize
 const Projects = () => {
 
   const allProjects = useProjectList();
+  const animateRef = useRef(null)
+  const isInView = useInView(animateRef)
+
+  useEffect(() => {
+
+  }, [isInView]);
+
   return (
-    <div className="min-h-screen w-full flex flex-col">
+    <div
+      className="min-h-screen w-full flex flex-col">
       <div className="w-full text-center my-10  drop-shadow-dark-btn ">
         <h6 className="header-stroke lg:text-4xl sm:text-3xl xs:text-2xl text-center uppercase">
           Projects
         </h6>
       </div>
-      <div className="flex max-w-[1400px] grow flex-wrap items-center justify-center mx-auto">
+      <motion.div
+        ref={animateRef}
+        initial={{ x: -500 }}
+        animate={{ x: isInView ? 0 : -500 }}
+        transition={{ duration: 1 }}
+        className="flex max-w-[1400px] grow flex-wrap items-center justify-center mx-auto">
         {allProjects &&
           allProjects.map((project) => (
-            <div
+            <motion.div
               key={project.id}
-              className="flex flex-col max-w-[450px] scale-[.85]"
+              style={{ scale: ".85" }}
+              className="flex flex-col max-w-[450px]"
             >
               <img
                 className="drop-shadow-project hover:scale-110 transition-all duration-500"
@@ -49,9 +62,9 @@ const Projects = () => {
                   </a>
                 </button>
               </div>
-            </div>
+            </motion.div>
           ))}
-      </div>
+      </motion.div>
     </div>
   );
 };

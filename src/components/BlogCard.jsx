@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useState } from "react";
+import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import authorImg from "../assets/images/author.jpeg";
 import { AiOutlineClockCircle, FaRegComments, AiFillEye } from "../assets/icon";
 import { NavLink } from "react-router-dom";
@@ -6,12 +6,16 @@ import { dateTimeFormat } from "../utils/dateTimeFormatHelper";
 import { getPostImageFromStorage, updateReadingCount } from "../services/firebase/firebase";
 import { Image, Tooltip } from "antd";
 import { calculateReadingTime } from "../utils/calculateReadingTimeHelper";
+import { useInView, motion } from "framer-motion";
 
 
-const BlogCard = ({ post }) => {
+const BlogCard = ({ post, index }) => {
   const [image, setImage] = useState("");
   const { postId } = post;
+  const animateRef = useRef(null)
+  const isInView = useInView(animateRef)
 
+  
   const fetchImageURL = useCallback(async () => {
     const url = await getPostImageFromStorage(postId);
     setImage(url);
@@ -24,7 +28,12 @@ const BlogCard = ({ post }) => {
   return (
     <>
       {post && (
-        <div
+        <motion.div
+          ref={animateRef}
+          initial={{ x: index % 2 === 0 ? -500 : 500 }}
+          animate={{ x: isInView ? 0 : index % 2 === 0 ? 500 : -500 }}
+          transition={{ duration: 1 }}
+
           // style={{ boxShadow: "0 0 10px rgba(29, 144, 244, .2)" }}
           className={`bg-black-400 overflow-hidden flex rounded-lg items-center justify-center mb-10 max-w-[1000px] mx-auto md:flex-row xs:flex-col `}
         >
@@ -108,7 +117,7 @@ const BlogCard = ({ post }) => {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       )}
     </>
   );

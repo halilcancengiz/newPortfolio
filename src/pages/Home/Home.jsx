@@ -24,6 +24,7 @@ const Home = () => {
         id="home"
         className="min-h-screen flex items-center justify-center flex-col text-white "
       >
+
         <section
           className={`relative min-w-screen min-h-screen flex items-center justify-center overflow-hidden flex-col after:content-[''] after:animate-opacity after:rounded-full after:h-20 after:w-20 after:bg-transparent after:absolute after:top-[-80px] after:left-[-80px] after:shadow-border-shadow-blue after:sm:block after:xs:hidden before:sm:block before:xs:hidden before:animate-opacity before:content-[''] before:rounded-full before:h-20 before:w-20 before:bg-transparent before:absolute before:bottom-[-80px] before:right-[-80px] before:shadow-border-shadow-blue  `}
         >

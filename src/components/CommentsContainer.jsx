@@ -13,10 +13,15 @@ const CommentsContainer = ({ isLoggedIn, postId }) => {
   // reselect
   const selectPostComments = state => state.postComments.value;
   const selectUser = state => state.user.value;
+  const selectUserInfo = state => state.user.info;
 
   const userSelector = createSelector(
     selectUser,
     user => user
+  );
+  const userInfoSelector = createSelector(
+    selectUserInfo,
+    userInfo => userInfo
   );
 
   const postCommentsSelector = createSelector(
@@ -26,6 +31,7 @@ const CommentsContainer = ({ isLoggedIn, postId }) => {
 
   const postComments = useSelector(postCommentsSelector);
   const user = useSelector(userSelector);
+  const userInfo = useSelector(userInfoSelector);
 
 
   const [open, setOpen] = useState(false);
@@ -47,7 +53,7 @@ const CommentsContainer = ({ isLoggedIn, postId }) => {
   }, [postId]);
 
   return (
-    <>
+    <div id="commentContainer">
       <div
         onClick={showDrawer}
         className="fixed cursor-pointer bottom-2 left-[50%] translate-x-[-50%] bg-blue-400 h-10 w-32 rounded-full flex items-center justify-center "
@@ -67,11 +73,11 @@ const CommentsContainer = ({ isLoggedIn, postId }) => {
           postComments && [...postComments]
             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
             .map((detail, index) => (
-              <Comment key={index} user={user} detail={detail} isLoggedIn={isLoggedIn} isVisible={open} postComments={postComments} />
+              <Comment key={index} userInfo={userInfo} user={user} detail={detail} isLoggedIn={isLoggedIn} isVisible={open} postComments={postComments} />
             ))
         }
       </Drawer>
-    </>
+    </div>
   );
 };
 

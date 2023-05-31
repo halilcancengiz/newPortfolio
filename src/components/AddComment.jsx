@@ -2,14 +2,23 @@ import React, { useState } from "react";
 import { RiSendPlaneFill } from "../assets/icon"
 import { Tooltip } from "antd";
 import { addComment } from "../services/firebase/firebase";
+import { createSelector } from "reselect";
+import { useSelector } from "react-redux";
 
 export const AddComment = ({ user, postId }) => {
   const [commentValue, setCommentValue] = useState("")
   const maxLength = "300"
+  const selectUserInfo = state => state.user.info;
+  const userInfoSelector = createSelector(
+    selectUserInfo,
+    user => user
+  );
+  const userInfo = useSelector(userInfoSelector);
+
 
   const sendComment = async () => {
     if (commentValue) {
-      const response = await addComment(user, commentValue.trim(), postId);
+      const response = await addComment(user, commentValue.trim(), postId, userInfo.fullName ? userInfo.fullName : "default");
       setCommentValue("");
     }
   };
