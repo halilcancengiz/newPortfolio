@@ -95,7 +95,7 @@ const Comment = ({ isVisible, isLoggedIn, detail, user, postComments, userInfo }
         <div className="flex items-start flex-col  w-full">
           <div className="flex flex-col">
             <div className="flex items-center">
-              <span onClick={() => console.log(detail.userId)} className="xs:text-xs sm:text-sm font-medium">{detail.author ? detail.author : "Yeni Kullanıcı"}</span>
+              <span className="xs:text-xs sm:text-sm font-medium">{detail.author ? detail.author : "Yeni Kullanıcı"}</span>
               {
                 user && detail && user.uid == detail.userId ? (
                   <div>
