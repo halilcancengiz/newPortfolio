@@ -54,12 +54,15 @@ export const Settings = () => {
 
   const fetchImageURL = useCallback(async () => {
     try {
-      const url = await getUserImage(user.uid);
-      if (url) {
-        setImage(url);
-      } else {
-        setImage(defaultUserImage);
+      if (user) {
+        const url = await getUserImage(user.uid);
+        if (url) {
+          setImage(url);
+        } else {
+          setImage(defaultUserImage);
+        }
       }
+
     } catch (error) {
       // Hata durumunda yapılması gerekenler
     }
@@ -70,7 +73,7 @@ export const Settings = () => {
       getUserById(user.uid);
       fetchImageURL();
     }
-  }, [user, fetchImageURL,isUpdating]);
+  }, [user, fetchImageURL, isUpdating]);
 
   return (
     <SlideAnimation>
