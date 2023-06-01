@@ -24,7 +24,7 @@ const Projects = () => {
         ref={animateRef}
         initial={{ x: -500 }}
         animate={{ x: isInView ? 0 : -500 }}
-        transition={{ duration: 1 }}
+        transition={{ duration: .5 }}
         className="flex max-w-[1400px] grow flex-wrap items-center justify-center mx-auto">
         {allProjects &&
           allProjects.map((project) => (

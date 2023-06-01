@@ -84,7 +84,7 @@ export const Settings = () => {
           </h6>
         </div>
         <div className="text-white mb-5">
-          {user && user.email}
+          {user ? user.email : "bilinmeyen email"}
         </div>
         <div className="group rounded-full mb-10 relative">
           <label onClick={() => setIsUpdating(true)} htmlFor="userImage" className="w-full h-full cursor-pointer absolute hidden group-hover:flex group-hover:items-center group-hover:justify-center group-hover:bg-black-500 rounded-full">

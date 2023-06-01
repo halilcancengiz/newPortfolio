@@ -1,17 +1,21 @@
-import React, { useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 // import { SlDislike, SlLike } from "../assets/icon"
 import author from "../assets/images/author.jpeg"
 import { TiTick, RxCross2 } from "../assets/icon"
 import { dateTimeFormat } from '../utils/dateTimeFormatHelper'
 import { createSelector } from 'reselect'
 import { useSelector } from 'react-redux'
-import { deleteReply, updateReply } from '../services/firebase/firebase'
+import { deleteReply, getAllUsersInfo, getUserImage, updateReply } from '../services/firebase/firebase'
 import { Popconfirm, Tooltip } from 'antd';
+import defaultUserImage from "../assets/images/default.avif"
+import { findAuthorName } from '../utils/findAuthorName'
 
-export const CommentReply = ({ isLoggedIn, replyDetail, commentId }) => {
+export const CommentReply = ({ isLoggedIn, replyDetail, commentId, info }) => {
     const [showAllText, setShowAllText] = useState(false)
     const [isReplyEditing, setIsReplyEditing] = useState(false)
     const [editReplyContent, setEditReplyContent] = useState(replyDetail.content)
+    const [image, setImage] = useState("")
+    const [allUsersInfo, setAllUsersInfo] = useState([])
 
     const confirm = (e) => {
         deleteReply(commentId, replyDetail)
@@ -30,20 +34,48 @@ export const CommentReply = ({ isLoggedIn, replyDetail, commentId }) => {
         setEditReplyContent(prevContent => (prevContent === replyDetail.content ? prevContent : editReplyContent));
     };
 
+    const fetchImageURL = useCallback(async (author) => {
+        try {
+            const url = await getUserImage(author);
+            if (url) {
+                setImage(url);
+            } else {
+                setImage(defaultUserImage);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }, [author]);
+
+    const fetchAllUsersInfo = useCallback(async () => {
+        try {
+            const allUsersInfo = await getAllUsersInfo();
+            setAllUsersInfo(allUsersInfo);
+        } catch (error) {
+            // Hata durumunda yapılması gerekenler
+            console.error(error);
+        }
+    }, []);
+
+    useEffect(() => {
+        fetchImageURL(replyDetail.userId);
+        fetchAllUsersInfo()
+    }, [fetchImageURL, replyDetail.userId], image);
+
     return (
         <div className="flex items-start text-xs mt-5 pl-5">
             <div className="mr-3 flex">
                 <div className="bg-blue-400 border-2 border-[#1E3B55] h-7 w-7 rounded-full flex items-center justify-center overflow-hidden">
-                    <img className="w-full h-full object-co" src={author} alt="" />
+                    <img className="w-full h-full object-co" src={image} alt="" />
                 </div>
             </div>
 
             <div className="flex items-start flex-col  w-full border-b-2 border-b-gray-400">
 
                 <div className="font-medium flex">
-                    <span>hllcncngz</span>
+                    <span>{findAuthorName(allUsersInfo, replyDetail.userId)}</span>
                     {
-                        user && replyDetail && user.uid == replyDetail.author ? (
+                        user && replyDetail && user.uid == replyDetail.userId ? (
                             <div>
                                 <button onClick={() => setIsReplyEditing(true)} className="ml-2 text-[10px] italic text-gray-500 cursor-pointer">düzenle</button>
                                 <span className="mx-2">/</span>

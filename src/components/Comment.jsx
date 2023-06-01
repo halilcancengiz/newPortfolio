@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 import defaultUserImage from "../assets/images/default.avif"
 import author from "../assets/images/author.jpeg";
 
-import { addLike, addReply, deleteComment, getUserImage, removeLike, updateComment } from "../services/firebase/firebase";
+import { addLike, addReply, deleteComment, getAllUsersInfo, getUserImage, removeLike, updateComment } from "../services/firebase/firebase";
 import { dateTimeFormat } from "../utils/dateTimeFormatHelper";
 import { typeNameTranslationHandler } from "../utils/typeNameTranslationHandler";
 import { likeInformationColor } from "../utils/likeInformationColor";
@@ -17,6 +17,7 @@ import useTypeIcon from "../hooks/useTypeIcon";
 
 import LikeSummaryModal from "./modals/LikeSummaryModal";
 import { CommentReply } from "./CommentReply";
+import { findAuthorName } from "../utils/findAuthorName";
 
 const Comment = ({ isVisible, isLoggedIn, detail, user, postComments, userInfo }) => {
 
@@ -27,18 +28,19 @@ const Comment = ({ isVisible, isLoggedIn, detail, user, postComments, userInfo }
   const [isEditing, setIsEditing] = useState(false)
   const [editContent, setEditContent] = useState(detail.content)
   const [image, setImage] = useState("")
+  const [allUsersInfo, setAllUsersInfo] = useState([])
 
   const handleShowReply = () => setShowReply(true)
   const handleReply = () => setShowAddReplyArea(true)
-  const updateLike = (commentId, likeType) => addLike(commentId, user.uid, likeType)
+  const updateLike = (commentId, likeType) => addLike(commentId, user.uid, likeType, userInfo.fullName || "")
   const sendReplyContent = (commentId, userId) => {
     replyText.length <= 0
       ? toast.warning("Lütfen alanı doldurun!")
-      : (addReply(commentId, userId, replyText, uuidv4()), setShowAddReplyArea(false), setReplyText(""));
+      : (addReply(commentId, userId, replyText, uuidv4(), userInfo.fullName), setShowAddReplyArea(false), setReplyText(""));
   };
   const handleLikeAction = (commentId, likeType) => {
-    const currentLikeType = detail.likes.find(like => like.id === user.uid)?.type;
-    detail.likes.some(like => like.id === user.uid)
+    const currentLikeType = detail.likes.find(like => like.userId === user.uid)?.type;
+    detail.likes.some(like => like.userId === user.uid)
       ? removeLike(commentId, user.uid, currentLikeType)
       : addLike(commentId, user.uid, likeType);
   }
@@ -59,7 +61,7 @@ const Comment = ({ isVisible, isLoggedIn, detail, user, postComments, userInfo }
 
 
   const replyComponents = sortedReplies.map((reply, index) => (
-    <CommentReply key={index} isLoggedIn={isLoggedIn} replyDetail={reply} commentId={detail.commentId} />
+    <CommentReply key={index} isLoggedIn={isLoggedIn} replyDetail={reply} info={userInfo} commentId={detail.commentId} />
   ));
 
   const fetchImageURL = useCallback(async (author) => {
@@ -73,16 +75,25 @@ const Comment = ({ isVisible, isLoggedIn, detail, user, postComments, userInfo }
     } catch (error) {
       // Hata durumunda yapılması gerekenler
     }
+  }, [author]);
+
+  const fetchAllUsersInfo = useCallback(async () => {
+    try {
+      const allUsersInfo = await getAllUsersInfo();
+      setAllUsersInfo(allUsersInfo);
+    } catch (error) {
+      // Hata durumunda yapılması gerekenler
+      console.error(error);
+    }
   }, []);
 
   useEffect(() => {
     if (!isVisible) {
       setShowReply(false);
     }
-    if (user) {
-      fetchImageURL(detail.userId);
-    }
-  }, [user, fetchImageURL, isVisible,detail.userId]);
+    fetchImageURL(detail.userId);
+    fetchAllUsersInfo()
+  }, [fetchImageURL, isVisible, detail.userId]);
 
   return (
     <div className="border-t py-2 border-gray-300">
@@ -95,7 +106,7 @@ const Comment = ({ isVisible, isLoggedIn, detail, user, postComments, userInfo }
         <div className="flex items-start flex-col  w-full">
           <div className="flex flex-col">
             <div className="flex items-center">
-              <span className="xs:text-xs sm:text-sm font-medium">{detail.author ? detail.author : "Yeni Kullanıcı"}</span>
+              <span className="xs:text-xs sm:text-sm font-medium">{findAuthorName(allUsersInfo, detail.userId)}</span>
               {
                 user && detail && user.uid == detail.userId ? (
                   <div>
@@ -161,9 +172,9 @@ const Comment = ({ isVisible, isLoggedIn, detail, user, postComments, userInfo }
                   <button className="group relative  cursor-pointer text-gray-500 transition-all duration-300">
                     <div onClick={() => handleLikeAction(detail.commentId, "like")} className="flex items-center gap-1">
                       {
-                        user.uid && detail.likes.find(x => x.id === user.uid) ? (
-                          detail.likes.filter(x => x.id === user.uid).map(c => (
-                            <React.Fragment key={c.id}>
+                        user.uid && detail.likes.find(x => x.userId === user.uid) ? (
+                          detail.likes.filter(x => x.userId === user.uid).map(c => (
+                            <React.Fragment key={c.userId}>
                               {useTypeIcon(c.type, 16)}
                               <div className={`${likeInformationColor(c.type)}`}><span className="capitalize">{typeNameTranslationHandler(c.type)}</span></div>
                             </React.Fragment>
@@ -197,7 +208,7 @@ const Comment = ({ isVisible, isLoggedIn, detail, user, postComments, userInfo }
                 </div>
               )}
               {detail.likes.length > 0 && (
-                <LikeSummaryModal postComments={postComments} count={detail.likes.length} commentId={detail.commentId} />
+                <LikeSummaryModal postComments={postComments} count={detail.likes.length} allUsersInfo={allUsersInfo} commentId={detail.commentId} />
               )}
             </div>
           </div>

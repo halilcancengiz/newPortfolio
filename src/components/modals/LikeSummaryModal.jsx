@@ -3,8 +3,11 @@ import { Modal } from 'antd';
 import { FaLaughBeam, BsLightbulbFill, AiFillLike, AiFillHeart, MdFilterAltOff } from "../../assets/icon"
 import useTypeIcon from '../../hooks/useTypeIcon';
 import { checkIfTypeExists } from '../../utils/checkIfTypeExists';
+import { findAuthorName } from '../../utils/findAuthorName';
+import UserImage from '../UserImage';
 
-const LikeSummaryModal = ({ postComments, count, commentId }) => {
+
+const LikeSummaryModal = ({ postComments, count, commentId, allUsersInfo }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [currentType, setCurrentType] = useState("");
 
@@ -26,6 +29,7 @@ const LikeSummaryModal = ({ postComments, count, commentId }) => {
     const handleOk = () => setIsModalOpen(false);
     const handleCancel = () => setIsModalOpen(false);
 
+
     return (
         <>
             <span className='font-semibold cursor-pointer' type="primary" onClick={showModal}>
@@ -34,7 +38,7 @@ const LikeSummaryModal = ({ postComments, count, commentId }) => {
             <Modal className='px-0' title="Reaksiyonlar" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                 <div className='flex gap-2 px-12 mb-5 '>
                     <div onClick={() => setCurrentType("")} className={`border-b-4 ${currentType === "" ? "border-b-green-400" : "border-b-[#355B89]"} pb-2  w-1/4 flex items-center justify-center`}>
-                        <MdFilterAltOff color='#6FC276' size={25} />
+                        <MdFilterAltOff color={`${currentType !== "" ? 'black' : "#6FC276"}`} size={25} />
                     </div>
                     {["like", "awesome", "informative", "funny"].map((type, index) => (
                         checkIfTypeExists(originalList, type) && (
@@ -57,9 +61,12 @@ const LikeSummaryModal = ({ postComments, count, commentId }) => {
                 <div className='mx-12'>
                     <ul>
                         {filteredComments.length > 0 && filteredComments[0].likes.map((like, index) => (
-                            <li key={index} className='flex my-2 items-center text-[#355B89] border-2 border-[rgba(53,91,137,0.6)] h-10 px-5 rounded-lg'>
+                            <li key={index} className='flex my-2 items-center hover:border-[#6FC276] text-[#355B89] border-2 border-[rgba(53,91,137,0.6)] h-10 px-5 rounded-lg'>
                                 <span className='h-full flex items-center px-3'>{useTypeIcon(like.type)}</span>
-                                <span className='w-full h-full flex items-center pl-5'>{like.id}</span>
+                                <div className='w-10 h-[90%]'>
+                                    <UserImage userId={like.userId} />
+                                </div>
+                                <span className='w-full h-full flex items-center pl-5'>{findAuthorName(allUsersInfo, like.userId)}</span>
                             </li>
                         ))}
                     </ul>

@@ -4,7 +4,7 @@ import { FaComments } from "../assets/icon";
 import Comment from "./Comment";
 import { AddComment } from "./AddComment";
 import { NavLink } from "react-router-dom";
-import { getAllCommentsForPost } from "../services/firebase/firebase";
+import { getAllCommentsForPost, getAllUsersInfo } from "../services/firebase/firebase";
 import { useSelector } from "react-redux";
 import { createSelector } from "reselect";
 

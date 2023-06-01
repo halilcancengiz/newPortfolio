@@ -148,7 +148,6 @@ onAuthStateChanged(auth, (user) => {
 
 // Kullanıcının bilgileri ekleme varsa güncelleme
 export const addAndUpdateUserInfo = async (fullName, birthday, gender, userId) => {
-    console.log("userId", userId);
     try {
         if (userId) {
             const userRef = doc(db, "users", userId);
@@ -221,6 +220,7 @@ export const getUserById = (userId) => {
         return null;
     }
 };
+
 export const addUserImage = async (id, image) => {
     if (!image) {
         return; // Eğer image boşsa, güncelleme yapma
@@ -293,6 +293,28 @@ export const getPosts = async () => {
         console.error("Error getPosts", error);
     }
 };
+
+
+export const getAllUsersInfo = () => {
+    return new Promise((resolve, reject) => {
+        try {
+            const usersCollection = collection(db, "users");
+            const users = [];
+
+            onSnapshot(usersCollection, (snapshot) => {
+                snapshot.forEach((doc) => {
+                    users.push(doc.data());
+                });
+
+                resolve(users);
+            });
+        } catch (error) {
+            console.error("Error getAllUsersInfo", error);
+            reject(error);
+        }
+    });
+}
+
 
 // Id ye göre postu getirme
 export const getPostById = async (title) => {
@@ -391,11 +413,15 @@ export const deleteComment = async (commentId) => {
 }
 
 //Cevap ekleme
-export const addReply = async (commentId, userId, content, replyId) => {
+export const addReply = async (commentId, userId, content, replyId, author) => {
     const date = new Date();
+    if (!author) {
+        toast.warning("Lütfen bilgilerinizi ayarlardan güncelleyin !")
+        return null
+    }
     try {
         await updateDoc(doc(db, "comments", commentId), {
-            replies: arrayUnion({ author: userId, content, replyId, createdAt: String(date), })
+            replies: arrayUnion({ author, content, replyId, createdAt: String(date), userId })
         }
         )
     } catch (error) {
@@ -476,13 +502,13 @@ export const addLike = async (commentId, userId, type) => {
         const likes = commentData.likes || [];
 
         // Kontrol işlemi
-        const userIndex = likes.findIndex(like => like.id === userId);
+        const userIndex = likes.findIndex(like => like.userId === userId);
         if (userIndex !== -1) {
             // Kullanıcının beğenisi zaten varsa güncelle
             likes[userIndex].type = type;
         } else {
             // Kullanıcının beğenisi yoksa ekle
-            likes.push({ id: userId, type });
+            likes.push({ userId, type });
         }
 
         await updateDoc(commentRef, { likes });
