@@ -28,10 +28,9 @@ const Projects = () => {
         className="flex max-w-[1400px] grow flex-wrap items-center justify-center mx-auto">
         {allProjects &&
           allProjects.map((project) => (
-            <motion.div
+            <div
               key={project.id}
-              style={{ scale: ".85" }}
-              className="flex flex-col max-w-[450px]"
+              className="flex flex-col max-w-[450px] scale-[.85]"
             >
               <img
                 className="drop-shadow-project hover:scale-110 transition-all duration-500"
@@ -62,7 +61,7 @@ const Projects = () => {
                   </a>
                 </button>
               </div>
-            </motion.div>
+            </div>
           ))}
       </motion.div>
     </div>
