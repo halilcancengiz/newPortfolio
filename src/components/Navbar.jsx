@@ -1,8 +1,7 @@
-import React, { memo } from "react";
+import React, { forwardRef, memo } from "react";
 import {
   BsChatSquareTextFill,
   IoSettingsSharp,
-  MdOutlineAddCircle,
   VscSignIn,
   VscSignOut,
   FaHome,
@@ -10,11 +9,10 @@ import {
 } from "../assets/icon";
 import { NavLink, useNavigate } from "react-router-dom";
 import { logout } from "../services/firebase/firebase";
-import { useRedux } from "../hooks/useRedux";
 import { Tooltip } from "antd";
 import { useSelector } from "react-redux";
 
-const Navbar = ({ showMenu }) => {
+const Navbar = forwardRef(({ props }, ref) => {
   const user = useSelector(state => state.user.value);
   const navigate = useNavigate();
 
@@ -25,8 +23,8 @@ const Navbar = ({ showMenu }) => {
 
 
   return (
-    <>
-      <nav className={`group glassmorphism z-50 flex gap-y-8 items-center justify-center flex-col fixed left-0 top-0 w-12 transition-all duration-700 h-full text-white ${showMenu ? "" : "hidden"}`}>
+    <div ref={ref}>
+      <nav id="navbar" className={`group glassmorphism z-50 flex gap-y-8 items-center justify-center flex-col fixed left-0 top-0 w-12 transition-all duration-700 h-full text-white`}>
         <Tooltip title="Ana Sayfa" placement="right" color="#1D90F4">
           <NavLink to="/" className="group w-full py-2 flex items-center justify-center flex-col cursor-pointer transition duration-100 hover:scale-110">
             <FaHome size={20} className="transition-all duration-100" />
@@ -71,8 +69,8 @@ const Navbar = ({ showMenu }) => {
           </Tooltip>
         )}
       </nav>
-    </>
+    </div>
   );
-};
+});
 
 export default memo(Navbar);

@@ -92,7 +92,7 @@ export const Settings = () => {
           </label>
           <img className="w-[250px] h-[250px] object-cover rounded-full object-center" src={image} alt="" />
         </div>
-        <form onSubmit={(e) => handleSubmit(e)} id="settings-form" className="flex max-w-[500px] w-full flex-col gap-2 font-montserrat">
+        <form onSubmit={(e) => handleSubmit(e)} id="settings-form" className="flex max-w-[500px] px-5 w-full flex-col gap-2 font-montserrat">
           <div className="bg-white w-full flex items-center justify-center h-12 rounded-md">
             <FaUserAlt className="mx-5 text-dark" size={20} />
             {
