@@ -12,8 +12,8 @@ import { useInView, motion } from "framer-motion";
 const BlogCard = ({ post, index }) => {
   const [image, setImage] = useState("");
   const { postId } = post;
-  const animateRef = useRef(null)
-  const isInView = useInView(animateRef)
+  // const animateRef = useRef(null)
+  // const isInView = useInView(animateRef)
 
 
   const fetchImageURL = useCallback(async () => {
@@ -28,11 +28,11 @@ const BlogCard = ({ post, index }) => {
   return (
     <>
       {post && (
-        <motion.div
-          ref={animateRef}
-          initial={{ x: index % 2 === 0 ? -500 : 500 }}
-          animate={{ x: isInView ? 0 : index % 2 === 0 ? 500 : -500 }}
-          transition={{ duration: .5 }}
+        <div
+          // ref={animateRef}
+          // initial={{ x: index % 2 === 0 ? -500 : 500 }}
+          // animate={{ x: isInView ? 0 : index % 2 === 0 ? 500 : -500 }}
+          // transition={{ duration: .5 }}
 
           // style={{ boxShadow: "0 0 10px rgba(29, 144, 244, .2)" }}
           className={`bg-black-400 overflow-hidden flex rounded-lg items-center justify-center mb-10 max-w-[1000px] mx-auto md:flex-row xs:flex-col `}
@@ -117,7 +117,7 @@ const BlogCard = ({ post, index }) => {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       )}
     </>
   );

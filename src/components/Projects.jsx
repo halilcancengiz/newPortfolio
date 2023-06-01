@@ -1,16 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useProjectList } from "../hooks/useProjectList";
-import { motion, useInView } from "framer-motion";
+// import { motion, useInView } from "framer-motion";
 // optimize
 const Projects = () => {
 
   const allProjects = useProjectList();
-  const animateRef = useRef(null)
-  const isInView = useInView(animateRef)
+  // const animateRef = useRef(null)
+  // const isInView = useInView(animateRef)
 
-  useEffect(() => {
+  // useEffect(() => {
 
-  }, [isInView]);
+  // }, [isInView]);
 
   return (
     <div
@@ -20,11 +20,11 @@ const Projects = () => {
           Projects
         </h6>
       </div>
-      <motion.div
-        ref={animateRef}
-        initial={{ x: -500 }}
-        animate={{ x: isInView ? 0 : -500 }}
-        transition={{ duration: .5 }}
+      <div
+        // ref={animateRef}
+        // initial={{ x: -500 }}
+        // animate={{ x: isInView ? 0 : -500 }}
+        // transition={{ duration: .5 }}
         className="flex max-w-[1400px] grow flex-wrap items-center justify-center mx-auto">
         {allProjects &&
           allProjects.map((project) => (
@@ -63,7 +63,7 @@ const Projects = () => {
               </div>
             </div>
           ))}
-      </motion.div>
+      </div>
     </div>
   );
 };
