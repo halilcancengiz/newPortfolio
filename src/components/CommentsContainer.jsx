@@ -71,7 +71,11 @@ const CommentsContainer = ({ isLoggedIn, postId }) => {
 
         {
           postComments && [...postComments]
-            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+            .sort((a, b) => {
+              const aDate = a.updatedAt || a.createdAt;
+              const bDate = b.updatedAt || b.createdAt;
+              return new Date(bDate) - new Date(aDate);
+            })
             .map((detail, index) => (
               <Comment key={index} userInfo={userInfo} user={user} detail={detail} isLoggedIn={isLoggedIn} isVisible={open} postComments={postComments} />
             ))

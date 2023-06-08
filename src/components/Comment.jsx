@@ -18,6 +18,7 @@ import useTypeIcon from "../hooks/useTypeIcon";
 import LikeSummaryModal from "./modals/LikeSummaryModal";
 import { CommentReply } from "./CommentReply";
 import { findAuthorName } from "../utils/findAuthorName";
+import useSortedReplies from "../hooks/useSortedReplies";
 
 const Comment = ({ isVisible, isLoggedIn, detail, user, postComments, userInfo }) => {
 
@@ -26,7 +27,7 @@ const Comment = ({ isVisible, isLoggedIn, detail, user, postComments, userInfo }
   const [showReply, setShowReply] = useState(false)
   const [replyText, setReplyText] = useState("")
   const [isEditing, setIsEditing] = useState(false)
-  const [editContent, setEditContent] = useState(detail.content)
+  const [editContent, setEditContent] = useState()
   const [image, setImage] = useState("")
   const [allUsersInfo, setAllUsersInfo] = useState([])
 
@@ -52,12 +53,7 @@ const Comment = ({ isVisible, isLoggedIn, detail, user, postComments, userInfo }
     setIsEditing(false);
     setEditContent(prevContent => (prevContent === detail.content ? prevContent : editContent));
   };
-  const sortedReplies = useMemo(() => {
-    if (detail.replies.length > 0 && showReply) {
-      return detail.replies.slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-    }
-    return [];
-  }, [detail.replies, showReply]);
+  const sortedReplies = useSortedReplies(detail.replies, showReply);
 
 
   const replyComponents = sortedReplies.map((reply, index) => (
@@ -87,13 +83,14 @@ const Comment = ({ isVisible, isLoggedIn, detail, user, postComments, userInfo }
     }
   }, []);
 
+
   useEffect(() => {
     if (!isVisible) {
       setShowReply(false);
     }
     fetchImageURL(detail.userId);
     fetchAllUsersInfo()
-  }, [fetchImageURL, isVisible, detail.userId]);
+  }, [fetchImageURL, isVisible, detail.userId, editContent]);
 
   return (
     <div className="border-t py-2 border-gray-300">
@@ -106,7 +103,7 @@ const Comment = ({ isVisible, isLoggedIn, detail, user, postComments, userInfo }
         <div className="flex items-start flex-col  w-full">
           <div className="flex flex-col">
             <div className="flex items-center">
-              <span className="xs:text-xs sm:text-sm font-medium">{findAuthorName(allUsersInfo, detail.userId)}</span>
+              <span onClick={()=>console.log(detail.userId)} className="xs:text-xs sm:text-sm font-medium">{findAuthorName(allUsersInfo, detail.userId)}</span>
               {
                 user && detail && user.uid == detail.userId ? (
                   <div>

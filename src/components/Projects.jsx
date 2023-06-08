@@ -17,7 +17,7 @@ const Projects = () => {
       className="min-h-screen w-full flex flex-col">
       <div className="w-full text-center my-10  drop-shadow-dark-btn ">
         <h6 className="header-stroke lg:text-4xl sm:text-3xl xs:text-2xl text-center uppercase">
-          Projects
+          Projeler
         </h6>
       </div>
       <div
@@ -33,7 +33,7 @@ const Projects = () => {
               className="flex flex-col max-w-[450px] scale-[.85]"
             >
               <img
-                className="drop-shadow-project hover:scale-110 transition-all duration-500"
+                className="drop-shadow-project hover:scale-110 h-60 transition-all duration-500 "
                 src={project.image}
                 alt={project.name}
               />

@@ -46,4 +46,5 @@ export { FaBirthdayCake } from 'react-icons/fa'; /*birth */
 export { BsGenderAmbiguous } from 'react-icons/bs'; /*birth */
 export { FaUserFriends } from 'react-icons/fa'; /*birth */
 export { BsCloudUploadFill } from 'react-icons/bs'; /*upload */
-export { BsImage } from 'react-icons/bs'; /*upload */
+export { BsImage } from 'react-icons/bs'; /*image */
+export { AiFillEdit } from 'react-icons/ai'; /*edit */

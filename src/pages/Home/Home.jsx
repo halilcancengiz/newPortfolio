@@ -52,7 +52,7 @@ const Home = () => {
         <section id="posts" className="w-full flex flex-col ">
           <div className="w-full flex items-center justify-center py-5 text-center my-10 drop-shadow-dark-btn ">
             <h6 className="header-stroke lg:text-4xl sm:text-3xl xs:text-2xl text-center uppercase">
-              LAST POSTS
+              Son gönderiler
             </h6>
           </div>
 

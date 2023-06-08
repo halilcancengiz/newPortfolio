@@ -46,7 +46,7 @@ function Technologies() {
     >
       <div className="w-full text-center my-10  drop-shadow-dark-btn ">
         <h6 className="header-stroke lg:text-4xl sm:text-3xl xs:text-2xl text-center uppercase">
-          Technologies
+         Teknolojiler
         </h6>
       </div>
       <div className="grow bg-red-700 flex">

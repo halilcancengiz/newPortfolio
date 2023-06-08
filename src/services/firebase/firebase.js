@@ -244,18 +244,16 @@ export const addUserImage = async (id, image) => {
 };
 
 //Firebase storage dan postun fotoğrafını getirme
+
 export const getUserImage = async (id) => {
     try {
-        const imageRef = ref(storage, `user-images/${id}`)
-        let imageURL = ""
-        await getDownloadURL(imageRef).then((result) => {
-            imageURL = result
-        })
-        return imageURL
+      const imageRef = ref(storage, `user-images/${id}`);
+      const imageURL = await getDownloadURL(imageRef);
+      return imageURL;
     } catch (error) {
-        return null
+      return null;
     }
-}
+  };
 
 // Post ekleme
 export const addPost = async (post, user) => {
