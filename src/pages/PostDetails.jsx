@@ -74,7 +74,7 @@ const PostDetails = () => {
 
               ),
               img: ({ node, ...props }) => (
-                <div className="max-w-full mx-auto bg-red-400">
+                <div className="max-w-full mx-auto">
                   <img
                     className="mb-5 mx-auto  object-contain"
                     {...props}

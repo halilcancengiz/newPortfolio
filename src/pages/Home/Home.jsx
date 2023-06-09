@@ -6,6 +6,7 @@ import Footer from "../../components/Footer";
 import SlideAnimation from "../../components/motion/SlideAnimation";
 import { Helmet } from "react-helmet";
 import BlogCardContainer from "../../components/BlogCardContainer";
+import Contact from "../../components/Contact";
 
 const Home = () => {
   return (
@@ -65,6 +66,7 @@ const Home = () => {
         </section>
         <Projects />
         <Technologies />
+        <Contact/>
         <Footer />
       </div>
     </SlideAnimation>

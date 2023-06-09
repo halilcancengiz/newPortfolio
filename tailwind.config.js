@@ -105,7 +105,8 @@ module.exports = {
       },
       boxShadow: {
         "border-shadow-blue": "10px 10px 300px 100px #1D90F4",
-        "border-shadow-green": "10px 10px 300px 250px #66B956"
+        "border-shadow-green": "10px 10px 300px 250px #66B956",
+        "border-shadow-contact": "0px 15px 10px -10px #1E364C, 0px -15px 10px -10px #1E364C",
       },
       screens: {
         'xs': '280px',

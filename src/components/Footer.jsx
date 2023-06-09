@@ -22,9 +22,9 @@ const Footer = () => {
       </div>
 
       <div className="flex flex-col items-center justify-center my-10">
-        <NavLink to="/contact" className="mb-5 border px-10 py-1 font-medium hover:bg-white hover:text-black transition-all duration-500">
+        <a href="#contact" className="mb-5 glassmorphism-button border px-16 py-1 font-medium  transition-all duration-500">
           Contact
-        </NavLink>
+        </a>
         <div className="flex items-center justify-center gap-10">
           <div className="border border-transparent hover:border-blue-btn rounded-full p-2 ">
             <BsTwitter size={25} />
