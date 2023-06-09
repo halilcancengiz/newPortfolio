@@ -11,10 +11,9 @@ const IndexMembership = () => {
         <div className="xs:px-4 md:px-0 flex flex-col items-center justify-center w-100 text-white z-10">
           <div className="text-lg text-center mb-8">Merhaba!</div>
           <p className="text-center mb-8">
-            Blog sayfama hoş geldiniz. Eğer henüz kayıt olmadıysanız, aşağıdaki
-            "Kayıt Ol" butonuna tıklayarak hemen kayıt işlemini
-            gerçekleştirebilirsiniz. Eğer zaten bir hesabınız varsa, "Giriş Yap"
-            butonu ile hesabınıza giriş yapabilirsiniz.
+            Portföy sayfama hoş geldiniz! Kayıt olmak isterseniz, lütfen "Kayıt Ol" butonuna tıklayarak örnek çalışmalarımı ve projelerimi keşfedebilirsiniz.
+            Eğer zaten bir hesabınız varsa, "Giriş Yap" butonuyla kişisel deneyiminizi sürdürebilirsiniz.
+            Bu sayede yaratıcı çalışmalarımı gözlemleyebilir ve potansiyel işbirliği olanaklarını keşfedebilirsiniz.
           </p>
           <div
             className={`flex items-center sm:gap-5 xs:gap-3 px-2 text-white w-full my-5`}
@@ -23,13 +22,13 @@ const IndexMembership = () => {
               to="register"
               className="flex items-center uppercase justify-center w-1/2 sm:h-12 xs:h-10  bg-gray-btn rounded-full hover:bg-blue-btn"
             >
-              Register
+              Kayıt Ol
             </NavLink>
             <NavLink
               to="login"
               className="flex items-center uppercase justify-center w-1/2 sm:h-12 xs:h-10  bg-gray-btn rounded-full hover:bg-blue-btn"
             >
-              Login
+              Giriş Yap
             </NavLink>
           </div>
         </div>

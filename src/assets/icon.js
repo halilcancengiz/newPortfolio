@@ -50,3 +50,4 @@ export { BsImage } from 'react-icons/bs'; /*image */
 export { AiFillEdit } from 'react-icons/ai'; /*edit */
 export { SlScreenDesktop } from 'react-icons/sl'; /*live */
 export { FiGithub } from 'react-icons/fi'; /*github */
+export { AiOutlineFundProjectionScreen } from 'react-icons/ai'; /*project icon */

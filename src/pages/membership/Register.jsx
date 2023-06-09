@@ -52,18 +52,18 @@ const Register = () => {
         <div className="w-100 flex flex-col py-7">
           <div className="flex flex-col xs:items-center px-3 focus:border">
             <h3 className="uppercase sm:text-base xs:text-sm font-semibold text-gray-300">
-              Start for free
+              Hemen başlayın
             </h3>
             <h1 className="capitalize flex sm:text-4xl xs:text-2xl my-3 font-bold text-white">
-              Create New Account
+              Yeni Hesap Oluştur
             </h1>
             <div className="capitalize text-gray-300 sm:text-base xs:text-sm">
-              Already a member?
+              Zaten üye misiniz?
               <NavLink
                 className="text-blue-500 font-semibold ml-1"
                 to="/membership/login"
               >
-                Log In.
+                giriş yap
               </NavLink>
             </div>
           </div>
@@ -81,7 +81,7 @@ const Register = () => {
                   className="ml-3 mt-1 text-xs text-gray-400 "
                   htmlFor="email"
                 >
-                  Email
+                  E-posta
                 </label>
                 <input
                   onChange={handleChange}
@@ -101,7 +101,7 @@ const Register = () => {
                   className="ml-3 mt-1 text-xs text-gray-400 "
                   htmlFor="email"
                 >
-                  Password
+                  Parola
                 </label>
                 <input
                   onChange={handleChange}
@@ -129,7 +129,7 @@ const Register = () => {
                   className="ml-3 mt-1 text-xs text-gray-400 capitalize "
                   htmlFor="email"
                 >
-                  confirm password
+                  parolayı onayla
                 </label>
                 <input
                   onChange={handleChange}
@@ -154,18 +154,16 @@ const Register = () => {
             </div>
             <button
               type="submit"
-              className={`w-full mx-auto text-white sm:h-12 xs:h-10  bg-gray-btn rounded-full hover:bg-blue-btn ${
-                otherRegisterMethod ? "hidden" : "block"
-              }`}
+              className={`w-full mx-auto text-white sm:h-12 xs:h-10  bg-gray-btn rounded-full hover:bg-blue-btn ${otherRegisterMethod ? "hidden" : "block"
+                }`}
             >
-              Register
+              Kayıt Ol
             </button>
           </form>
           <div className="flex flex-col">
             <div
-              className={`my-5 gap-3 flex flex-col items-center justify-center sm:p-0 xs:px-2  ${
-                otherRegisterMethod ? "block" : "hidden"
-              }`}
+              className={`my-5 gap-3 flex flex-col items-center justify-center sm:p-0 xs:px-2  ${otherRegisterMethod ? "block" : "hidden"
+                }`}
             >
               <div className="sm:h-16 xs:h-12 bg-dark-input rounded-xl flex items-center justify-center w-full cursor-pointer hover:border-2 border-twitter">
                 <BsTwitter size={30} className="text-twitter" />
@@ -177,12 +175,6 @@ const Register = () => {
                 <SiFacebook size={30} className="text-facebook" />
               </div>
             </div>
-            <button
-              onClick={changeMethod}
-              className="w-full text-white sm:h-12 xs:h-10  bg-gray-btn rounded-full hover:bg-blue-btn"
-            >
-              Change method
-            </button>
           </div>
         </div>
       </div>

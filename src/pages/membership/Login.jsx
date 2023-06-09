@@ -48,23 +48,17 @@ const Login = () => {
         <div className="w-100 flex flex-col py-7">
           <div className="flex flex-col xs:items-center px-3 focus:border">
             <h1 className="capitalize flex sm:text-4xl xs:text-2xl my-3 font-bold text-white">
-              Login to your account
+              Hesabınıza giriş yapın.
             </h1>
             <div className="capitalize text-gray-300 sm:text-base xs:text-sm">
-              Not a member yet?
+              Henüz üye değil misiniz?
               <NavLink
                 className="text-blue-500 font-semibold ml-1"
                 to="/membership/register"
               >
-                Register.
+                Kayıt Ol.
               </NavLink>
             </div>
-            <button
-              onClick={changeMethod}
-              className="w-full text-blue-500 mt-3 rounded-full"
-            >
-              Other Register Methods
-            </button>
           </div>
 
           <form
@@ -81,7 +75,7 @@ const Login = () => {
                   className="ml-3 mt-1 text-xs text-gray-400 "
                   htmlFor="email"
                 >
-                  Email
+                  E-posta
                 </label>
                 <input
                   onChange={handleChange}
@@ -101,7 +95,7 @@ const Login = () => {
                   className="ml-3 mt-1 text-xs text-gray-400 "
                   htmlFor="email"
                 >
-                  Password
+                  Parola
                 </label>
                 <input
                   onChange={handleChange}
@@ -127,7 +121,7 @@ const Login = () => {
               className={`w-full text-white sm:h-12 xs:h-10  bg-gray-btn rounded-full hover:bg-blue-btn ${otherLoginMethod ? "hidden" : "block"
                 }`}
             >
-              Login
+              Giriş Yap
             </button>
           </form>
           <div className="flex flex-col">

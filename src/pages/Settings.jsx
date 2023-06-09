@@ -67,7 +67,7 @@ export const Settings = () => {
     } catch (error) {
       // Hata durumunda yapılması gerekenler
     }
-  }, [user.uid]);
+  }, []);
 
   useEffect(() => {
     if (user && user.uid) {

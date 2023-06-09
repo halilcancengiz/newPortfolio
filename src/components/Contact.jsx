@@ -24,12 +24,12 @@ const Contact = () => {
                     </div>
 
                     <div className='w-full flex justify-end'>
-                        <a style={{borderRadius:"5px"}} className=" glassmorphism-button overflow-hidden border flex items-center justify-center my-2 px-10 cursor-pointer group bg-transparent relative py-1">
+                        <a style={{ borderRadius: "5px" }} className=" glassmorphism-button overflow-hidden border flex items-center justify-center my-2 px-10 cursor-pointer group bg-transparent relative py-1">
                             <div
                                 style={{ transition: "all .5s ease-in-out" }}
                                 className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-0 h-0 z-[-1]  bg-gradient-to-r from-blue-700 to-black-700 group-hover:h-full  group-hover:w-full group-hover:transition-all group-hover:font-bold group-hover:duration-500 animate-pulse"
                             ></div>
-                            <span  >
+                            <span className='uppercase'>
                                 Gönder
                             </span>
                         </a>

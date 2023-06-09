@@ -15,8 +15,7 @@ const Projects = () => {
   // }, [isInView]);
 
   return (
-    <div
-      className="min-h-screen w-full flex flex-col">
+    <div id="projects" className="min-h-screen w-full flex flex-col">
       <div className="w-full text-center my-10  drop-shadow-dark-btn ">
         <h6 className="header-stroke lg:text-4xl sm:text-3xl xs:text-2xl text-center uppercase">
           Projeler
@@ -70,7 +69,7 @@ const Projects = () => {
                     Github
                   </span>
                 </a>
-                
+
               </div>
             </div>
           ))}
