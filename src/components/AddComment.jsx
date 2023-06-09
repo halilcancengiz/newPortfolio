@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 export const AddComment = ({ user, postId }) => {
   const [commentValue, setCommentValue] = useState("")
   const maxLength = "300"
+  
   const selectUserInfo = state => state.user.info;
   const userInfoSelector = createSelector(
     selectUserInfo,

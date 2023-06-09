@@ -23,7 +23,7 @@ const UserImage = ({ userId }) => {
     }, [userId]);
 
     return (
-        <img className='w-full h-full rounded-full' src={image} alt="" />
+        <img className='h-8 w-8 rounded-full object-cover' src={image} alt="" />
     )
 }
 

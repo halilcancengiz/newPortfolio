@@ -3,18 +3,24 @@ import authorImg from "../assets/images/author.jpeg";
 import { AiOutlineClockCircle, FaRegComments, AiFillEye } from "../assets/icon";
 import { NavLink } from "react-router-dom";
 import { dateTimeFormat } from "../utils/dateTimeFormatHelper";
-import { getPostImageFromStorage, updateReadingCount } from "../services/firebase/firebase";
+import { getPostCommentCount, getPostImageFromStorage, updateReadingCount } from "../services/firebase/firebase";
 import { Image, Tooltip } from "antd";
 import { calculateReadingTime } from "../utils/calculateReadingTimeHelper";
-import { useInView, motion } from "framer-motion";
+// import { useInView, motion } from "framer-motion";
 
 
 const BlogCard = ({ post, index }) => {
   const [image, setImage] = useState("");
+  const [commentslength, setCommentsLength] = useState(0)
   const { postId } = post;
   // const animateRef = useRef(null)
   // const isInView = useInView(animateRef)
 
+
+  const fetchCommentsCount = async (postId) => {
+    const count = await getPostCommentCount(postId);
+    setCommentsLength(count)
+  };
 
   const fetchImageURL = useCallback(async () => {
     const url = await getPostImageFromStorage(postId);
@@ -23,6 +29,9 @@ const BlogCard = ({ post, index }) => {
 
   useEffect(() => {
     fetchImageURL();
+    if (postId) {
+      fetchCommentsCount(postId); // postId'i fetchCommentsCount'a aktarın
+    }
   }, [fetchImageURL()]);
 
   return (
@@ -73,7 +82,7 @@ const BlogCard = ({ post, index }) => {
                     <div className="flex items-center my-1">
                       <FaRegComments className="text-blue-btn mr-2" size={16} />
                       <span className="text-xs italic">
-                        {post.comments.length}
+                        {commentslength}
                       </span>
                     </div>
                   </Tooltip>

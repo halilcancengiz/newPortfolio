@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useProjectList } from "../hooks/useProjectList";
+import { Tooltip } from "antd";
+import { SlScreenDesktop, FiGithub } from "../assets/icon"
 // import { motion, useInView } from "framer-motion";
 // optimize
 const Projects = () => {
@@ -39,27 +41,36 @@ const Projects = () => {
               />
               <div className="h-40 text-center rounded-2xl flex flex-col items-center">
                 <h3 className="sm:text-3xl header-stroke xs:text-lg capitalize border-b">{project.name}</h3>
-                <p className="my-auto text-lg line-clamp-3 text-justify tracking-tight">{project.description} Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio repudiandae officia atque ea dolore nobis libero recusandae? Numquam, facilis dicta! </p>
+                <Tooltip title={project.description} placement="right">
+                  <p className="my-auto text-lg line-clamp-3 text-justify tracking-tight">
+                    {project.description}
+                  </p>
+                </Tooltip>
               </div>
               <div className="flex items-center gap-5 justify-center mt-2">
-                <button className="w-full border  border-image-right-to-left group bg-transparent relative py-3">
+
+                <a target="_blank" href={project.liveDemoUrl} className="w-full flex items-center justify-center border  border-image-right-to-left group bg-transparent relative py-3">
+                  <div
+                    style={{ transition: "all .5s ease-in-out" }}
+                    className="flex items-center justify-center absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-0 h-0 z-[-1]  bg-gradient-to-r from-blue-500 to-green-500 group-hover:h-full  group-hover:w-full group-hover:transition-all group-hover:font-bold group-hover:duration-500 animate-pulse"
+                  ></div>
+                  <SlScreenDesktop size={20} className="mr-2 text-white" />
+                  <span >
+                    Canlı
+                  </span>
+                </a>
+
+                <a href={project.githubUrl} target="_blank" className="w-full border flex items-center justify-center  border-image-left-to-right group bg-transparent relative py-3">
                   <div
                     style={{ transition: "all .5s ease-in-out" }}
                     className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-0 h-0 z-[-1]  bg-gradient-to-r from-blue-500 to-green-500 group-hover:h-full  group-hover:w-full group-hover:transition-all group-hover:font-bold group-hover:duration-500 animate-pulse"
                   ></div>
-                  <a target="_blank" href={project.liveDemoUrl}>
-                    Live Demo
-                  </a>
-                </button>
-                <button className="w-full border  border-image-left-to-right group bg-transparent relative py-3">
-                  <div
-                    style={{ transition: "all .5s ease-in-out" }}
-                    className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-0 h-0 z-[-1]  bg-gradient-to-r from-blue-500 to-green-500 group-hover:h-full  group-hover:w-full group-hover:transition-all group-hover:font-bold group-hover:duration-500 animate-pulse"
-                  ></div>
-                  <a className="" target="_blank" href={project.githubUrl}>
-                    Inspect
-                  </a>
-                </button>
+                  <FiGithub size={20} className="mr-2" />
+                  <span  >
+                    Github
+                  </span>
+                </a>
+                
               </div>
             </div>
           ))}

@@ -165,7 +165,7 @@ const Comment = ({ isVisible, isLoggedIn, detail, user, postComments, userInfo }
             }
             <div className={`flex w-full   ${isLoggedIn ? "justify-between" : " justify-end"}`}>
               {isLoggedIn && (
-                <div className="flex gap-2">
+                <div className="flex gap-2 ">
                   <button className="group relative  cursor-pointer text-gray-500 transition-all duration-300">
                     <div onClick={() => handleLikeAction(detail.commentId, "like")} className="flex items-center gap-1">
                       {

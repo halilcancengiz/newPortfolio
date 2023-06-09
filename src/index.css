@@ -43,7 +43,7 @@ body,
 
 .ant-select-selection-placeholder,
 .ant-picker-input>input::placeholder {
-  color: gray!important;
+  color: gray !important;
 }
 
 /* commentContainer */
@@ -246,6 +246,10 @@ pre div {
 
 .ant-modal-footer {
   padding: 20px 24px !important;
+}
+
+.ant-btn-default {
+  display: none !important;
 }
 
 .ant-btn-primary {

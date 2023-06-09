@@ -16,18 +16,12 @@ export const Settings = () => {
   const [userImage, setUserImage] = useState(null)
   const [image, setImage] = useState("")
   const fullNameRef = useRef()
-  const birthdayRef = useRef()
-  const genderRef = useRef()
 
   const [userInfo, setUserInfo] = useState({
     fullName: info && info.fullName ? info.fullName : "",
     birthday: info && info.birthday ? info.birthday : "",
     gender: info && info.gender ? info.gender : ""
   });
-
-  const [userInfo2, setUserInfo2] = useState({
-
-  })
 
   const onChangeBirthDay = (date, dateString) => setUserInfo({ ...userInfo, birthday: dateString });
 

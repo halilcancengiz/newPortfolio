@@ -22,7 +22,7 @@ const Footer = () => {
       </div>
 
       <div className="flex flex-col items-center justify-center my-10">
-        <NavLink to="/contact" className="mb-5 border px-10 py-1 font-medium hover:bg-white hover:text-black">
+        <NavLink to="/contact" className="mb-5 border px-10 py-1 font-medium hover:bg-white hover:text-black transition-all duration-500">
           Contact
         </NavLink>
         <div className="flex items-center justify-center gap-10">

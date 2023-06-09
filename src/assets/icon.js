@@ -48,3 +48,5 @@ export { FaUserFriends } from 'react-icons/fa'; /*birth */
 export { BsCloudUploadFill } from 'react-icons/bs'; /*upload */
 export { BsImage } from 'react-icons/bs'; /*image */
 export { AiFillEdit } from 'react-icons/ai'; /*edit */
+export { SlScreenDesktop } from 'react-icons/sl'; /*live */
+export { FiGithub } from 'react-icons/fi'; /*github */

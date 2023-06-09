@@ -247,13 +247,25 @@ export const addUserImage = async (id, image) => {
 
 export const getUserImage = async (id) => {
     try {
-      const imageRef = ref(storage, `user-images/${id}`);
-      const imageURL = await getDownloadURL(imageRef);
-      return imageURL;
+        const imageRef = ref(storage, `user-images/${id}`);
+        const imageURL = await getDownloadURL(imageRef);
+        return imageURL;
     } catch (error) {
-      return null;
+        return null;
+    }
+};
+
+export const getPostCommentCount = async (postId) => {
+    try {
+      const querySnapshot = await getDocs(query(collection(db, "comments"), where("postId", "==", postId)));
+      const commentsCount = querySnapshot.size;
+      return commentsCount;
+    } catch (error) {
+      console.error("Error getting comments", error);
+      return 0;
     }
   };
+
 
 // Post ekleme
 export const addPost = async (post, user) => {
@@ -267,7 +279,6 @@ export const addPost = async (post, user) => {
                 author: "Halil Can Cengiz",
                 category: post.category.toLowerCase(),
                 createdAt: String(date),
-                comments: [],
                 metaDescription: post.metaDescription,
                 readingCount: 0
             });
