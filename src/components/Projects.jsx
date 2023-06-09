@@ -41,7 +41,7 @@ const Projects = () => {
               />
               <div className="h-40 text-center rounded-2xl flex flex-col items-center">
                 <h3 className="sm:text-3xl header-stroke xs:text-lg capitalize border-b">{project.name}</h3>
-                <Tooltip title={project.description} placement="right">
+                <Tooltip title={project.description} placement="bottom-center">
                   <p className="my-auto text-lg line-clamp-3 text-justify tracking-tight">
                     {project.description}
                   </p>
