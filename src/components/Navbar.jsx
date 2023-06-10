@@ -5,14 +5,12 @@ import {
   VscSignIn,
   VscSignOut,
   FaHome,
-  TbInfoHexagon,
   AiOutlineFundProjectionScreen
 } from "../assets/icon";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { logout } from "../services/firebase/firebase";
 import { Tooltip } from "antd";
 import { useSelector } from "react-redux";
-import { Link as LinkScroll } from 'react-scroll'
 import { useEffect } from "react";
 import { useState } from "react";
 
