@@ -12,16 +12,38 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { logout } from "../services/firebase/firebase";
 import { Tooltip } from "antd";
 import { useSelector } from "react-redux";
+import { Link as LinkScroll } from 'react-scroll'
+import { useEffect } from "react";
+import { useState } from "react";
 
 const Navbar = forwardRef(({ props }, ref) => {
   const location = useLocation()
-  console.log(location);
   const user = useSelector(state => state.user.value);
   const navigate = useNavigate();
+  const [shouldFocusProjects, setShouldFocusProjects] = useState(false);
 
   const handleLogout = () => {
     logout();
     navigate("/", { replace: true });
+  };
+
+  useEffect(() => {
+    if (shouldFocusProjects) {
+      const element = document.querySelector("#projects");
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+      setShouldFocusProjects(false);
+    }
+  }, [shouldFocusProjects]);
+
+  const handleNavLinkClick = () => {
+    if (location.pathname !== "/") {
+      navigate("/");
+      setShouldFocusProjects(true);
+    } else {
+      setShouldFocusProjects(true);
+    }
   };
 
 
@@ -42,17 +64,15 @@ const Navbar = forwardRef(({ props }, ref) => {
         </Tooltip>
 
         <Tooltip title="Projelerim" placement="right" color="#1D90F4">
-          {
-            location.pathname === "/" ? (
-              <a href="#projects" className="w-full local py-2 flex items-center justify-center flex-col cursor-pointer transition duration-100 hover:scale-110">
-                <AiOutlineFundProjectionScreen size={21} className="transition-all duration-100" />
-              </a>
-            ) : (
-              <NavLink to="/" className="w-full py-2 flex items-center justify-center flex-col cursor-pointer transition duration-100 hover:scale-110">
-                <AiOutlineFundProjectionScreen size={21} className="transition-all duration-100" />
-              </NavLink>
-            )
-          }
+          <div
+            className="w-full py-2 flex items-center justify-center flex-col cursor-pointer transition duration-100 hover:scale-110"
+            onClick={handleNavLinkClick}
+          >
+            <AiOutlineFundProjectionScreen
+              size={21}
+              className="transition-all duration-100"
+            />
+          </div>
         </Tooltip>
 
         {user && (

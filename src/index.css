@@ -16,8 +16,6 @@ body,
 #root {
   min-height: 100vh;
   max-width: 100vw;
-  overflow-x: hidden;
-  scroll-behavior: smooth!important;
 }
 
 .glassmorphism {

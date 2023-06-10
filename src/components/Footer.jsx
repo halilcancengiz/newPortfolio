@@ -22,7 +22,7 @@ const Footer = () => {
       </div>
 
       <div className="flex flex-col items-center justify-center my-10">
-        <a href="#contact" className="mb-5 glassmorphism-button border px-16 py-1 uppercase font-medium  transition-all duration-500">
+      <a href="#contact" className="mb-5 glassmorphism-button border px-16 py-1 uppercase font-medium  transition-all duration-500">
           iletişim
         </a>
         <div className="flex items-center justify-center gap-10">
