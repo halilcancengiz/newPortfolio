@@ -5,6 +5,8 @@ export { BsTwitter } from 'react-icons/bs';
 export { FcGoogle } from 'react-icons/fc';
 export { SiFacebook } from 'react-icons/si';
 export { BsChatSquareTextFill } from 'react-icons/bs'; /*blogs */
+export { CgReadme } from 'react-icons/cg'; /*posts */
+export { RiMailSendLine } from 'react-icons/ri'; /*posts */
 export { IoSettingsSharp } from 'react-icons/io5'; /*settings */
 export { MdOutlineFavorite } from 'react-icons/md'; /*favorites */
 export { MdOutlineAddCircle } from 'react-icons/md'; /*favorites */

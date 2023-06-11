@@ -199,6 +199,81 @@ export const addAndUpdateUserInfo = async (fullName, birthday, gender, userId) =
     }
 };
 
+// Mesaj gönderme
+
+
+// Mesaj gönderme
+let lastMessageTime = localStorage.getItem('lastMessageTime');
+if (lastMessageTime) {
+    lastMessageTime = new Date(lastMessageTime);
+}
+
+let remainingTime = 0; // Geri sayım süresi (saniye)
+
+// Geri sayım süresini takip etmek için bir interval tanımla
+let countdownInterval = null;
+
+// Geri sayım süresi bittiğinde geri bildirimi kaldırmak ve interval'ı temizlemek için bir fonksiyon
+const clearCountdown = () => {
+    clearInterval(countdownInterval);
+    countdownInterval = null;
+    remainingTime = 0;
+    localStorage.removeItem('lastMessageTime');
+};
+
+// Mesaj gönderme işlevi
+export const sendMessage = async (messageInfo) => {
+    try {
+        const currentTime = new Date();
+
+        if (lastMessageTime && currentTime - lastMessageTime < 5 * 60 * 1000) {
+            // Eğer son mesajdan 5 dakika içinde yeni mesaj gönderilmeye çalışılıyorsa
+            const timeDiff = 5 * 60 * 1000 - (currentTime - lastMessageTime);
+            const remainingSeconds = Math.ceil(timeDiff / 1000);
+
+            toast.warning(`5 dakika içinde tekrar mesaj gönderemezsiniz.Kalan süre: ${remainingSeconds} saniye.`,{
+                autoClose: 1500
+            });
+            return false;
+        }
+
+        const { fullName, subject, content } = messageInfo;
+
+        if (fullName.length === 0 || subject.length === 0 || content.length === 0) {
+            toast.warning("Lütfen tüm alanları doldurun!", {
+                autoClose: 1500
+            });
+            return false;
+        } else {
+            const message = {
+                fullName: fullName,
+                subject: subject,
+                content: content,
+                timestamp: currentTime.getTime(), // Mesajın zaman damgası
+            };
+            const docRef = await addDoc(collection(db, "messages"), message);
+            toast.success("Mesajınız başarıyla iletilmiştir.",{
+                autoClose: 1500
+            });
+
+            lastMessageTime = currentTime; // Son mesajın zamanını güncelle
+            localStorage.setItem('lastMessageTime', lastMessageTime); // localStorage'a kaydet
+
+            // Geri sayım süresini başlat
+            remainingTime = 5 * 60; // 5 dakika
+            countdownInterval = setInterval(() => {
+                remainingTime--;
+                if (remainingTime <= 0) {
+                    clearCountdown();
+                }
+            }, 1000);
+            return true
+        }
+    } catch (error) {
+        console.log("sendMessage", error);
+    }
+};
+
 // ID ye göre kullanıcının bilgilerini getirme
 export const getUserById = (userId) => {
     try {
@@ -221,6 +296,7 @@ export const getUserById = (userId) => {
     }
 };
 
+// Kullanıcı fotoğrafı ekleme-güncelleme
 export const addUserImage = async (id, image) => {
     if (!image) {
         return; // Eğer image boşsa, güncelleme yapma
@@ -255,16 +331,17 @@ export const getUserImage = async (id) => {
     }
 };
 
+// Posta ait yorum sayısını getirme 
 export const getPostCommentCount = async (postId) => {
     try {
-      const querySnapshot = await getDocs(query(collection(db, "comments"), where("postId", "==", postId)));
-      const commentsCount = querySnapshot.size;
-      return commentsCount;
+        const querySnapshot = await getDocs(query(collection(db, "comments"), where("postId", "==", postId)));
+        const commentsCount = querySnapshot.size;
+        return commentsCount;
     } catch (error) {
-      console.error("Error getting comments", error);
-      return 0;
+        console.error("Error getting comments", error);
+        return 0;
     }
-  };
+};
 
 
 // Post ekleme
@@ -303,7 +380,7 @@ export const getPosts = async () => {
     }
 };
 
-
+// Tüm Kullanıcıların bilgilerini getirme
 export const getAllUsersInfo = () => {
     return new Promise((resolve, reject) => {
         try {

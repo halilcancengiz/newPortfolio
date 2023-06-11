@@ -34,7 +34,7 @@ const PostDetails = () => {
         {currentPost && (
           <ReactMarkdown
             key={currentPost.postId}
-            className="w-full h-full overflow-x-hidden overflow-auto p-10 "
+            className="w-full h-full overflow-x-hidden overflow-auto p-10"
             remarkPlugins={[remarkGfm]}
             children={currentPost.content}
             components={{
@@ -42,6 +42,7 @@ const PostDetails = () => {
                 const match = /language-(\w+)/.exec(className || "");
                 return !inline && match ? (
                   <SyntaxHighlighter
+                    className="mb-5"
                     {...props}
                     children={String(children).replace(/\n$/, "")}
                     style={atomOneDark}

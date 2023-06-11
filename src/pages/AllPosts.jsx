@@ -3,18 +3,39 @@ import { useEffect, useState } from "react";
 import { getPosts } from "../services/firebase/firebase";
 import { NavLink } from "react-router-dom";
 import SlideAnimation from "../components/motion/SlideAnimation";
-import { shallowEqual, useSelector } from "react-redux";
-const { Panel } = Collapse;
+import { useSelector } from "react-redux";
+import { createSelector } from "reselect";
+import { useMemo } from "react";
 
 export const AllPosts = () => {
-  const posts = useSelector(state => state.posts.allPosts, shallowEqual);
+  const selectGetAllPost = state => state.posts.allPosts;
+  const getAllPostsSelector = createSelector(
+    selectGetAllPost,
+    posts => posts
+  )
+  const posts = useSelector(getAllPostsSelector);
+
   const [search, setSearch] = useState("");
-  const [filteredList,setFilteredList]=useState(posts ?? null)
+  const [filteredList, setFilteredList] = useState(posts ?? null)
 
   useEffect(() => {
-    getPosts();
-    setFilteredList(posts.filter((post) => post.postTitle.toLowerCase().includes(search.toLowerCase().trim())))
-  }, [search]);
+    fetchGetAllPosts();
+  }, []);
+
+  const fetchGetAllPosts = async () => {
+    await getPosts();
+    filterPosts();
+  }
+
+  const filterPosts = () => {
+    const filteredList = posts.filter((post) => post.postTitle.toLowerCase().includes(search.toLowerCase().trim()));
+    setFilteredList(filteredList);
+  };
+
+  useEffect(() => {
+    filterPosts();
+  }, [search, posts]);
+
 
   return (
     <SlideAnimation>
@@ -33,29 +54,30 @@ export const AllPosts = () => {
         />
       </div>
       <div className="max-w-[1300px] mx-auto px-5 flex flex-col gap-3">
-        {posts &&
-          filteredList.map((post) => (
+        {
+          posts && filteredList.map(post => (
             <Collapse
-              className="glassmorphism"
               key={post.postId}
-              defaultActiveKey={["1"]}
-            >
-              <Panel
-                className="flex flex-col border-0"
-                header={post.postTitle.toUpperCase()}
-              >
-                <p className="mb-5">{post.metaDescription}</p>
-                <div className="w-full flex justify-end">
-                  <NavLink
-                    className="bg-blue-btn text-white h-8 px-5 rounded-xl flex items-center justify-center capitalize"
-                    to={`/post/${post.postTitle.replace(/\s+/g, "-")}`}
-                  >
-                    incele
-                  </NavLink>
-                </div>
-              </Panel>
-            </Collapse>
-          ))}
+              className="glassmorphism"
+              size="medium"
+              items={[
+                {
+                  key: post.postId,
+                  label: post.postTitle.toUpperCase(),
+                  children:
+                    <div >
+                      <p className="mb-5">{post.metaDescription}</p>
+                      <div className="w-full flex justify-end ">
+                        <NavLink className="glassmorphism-button px-10 py-1" to={`/post/${post.postTitle.replace(/\s+/g, "-")}`}>
+                          incele
+                        </NavLink>
+                      </div>
+                    </div>
+                },
+              ]}
+            />
+          ))
+        }
       </div>
     </SlideAnimation>
   );

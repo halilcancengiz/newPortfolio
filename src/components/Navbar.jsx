@@ -1,48 +1,39 @@
-import React, { forwardRef, memo } from "react";
-import {
-  BsChatSquareTextFill,
-  IoSettingsSharp,
-  VscSignIn,
-  VscSignOut,
-  FaHome,
-  AiOutlineFundProjectionScreen
-} from "../assets/icon";
+import React, { forwardRef, memo, useEffect, useState } from "react";
+import { IoSettingsSharp, VscSignIn, VscSignOut, FaHome, AiOutlineFundProjectionScreen, CgReadme, RiMailSendLine } from "../assets/icon";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { logout } from "../services/firebase/firebase";
 import { Tooltip } from "antd";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
-import { useState } from "react";
+
+
 
 const Navbar = forwardRef(({ props }, ref) => {
   const location = useLocation()
   const user = useSelector(state => state.user.value);
   const navigate = useNavigate();
-  const [shouldFocusProjects, setShouldFocusProjects] = useState(false);
 
   const handleLogout = () => {
     logout();
     navigate("/", { replace: true });
   };
 
-  useEffect(() => {
-    if (shouldFocusProjects) {
-      const element = document.querySelector("#projects");
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
-      setShouldFocusProjects(false);
-    }
-  }, [shouldFocusProjects]);
+  
 
-  const handleNavLinkClick = () => {
-    if (location.pathname !== "/") {
-      navigate("/");
-      setShouldFocusProjects(true);
+  const handleNavigate = (element) => {
+    const target = document.querySelector(`#${element}`);
+    if (target && location.pathname === "/") {
+      target.scrollIntoView({ behavior: "smooth" });
     } else {
-      setShouldFocusProjects(true);
+      navigate("/", { replace: true });
+      setTimeout(() => {
+        const updatedTarget = document.querySelector(`#${element}`);
+        if (updatedTarget) {
+          updatedTarget.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 500);
     }
   };
+
 
 
   return (
@@ -55,18 +46,30 @@ const Navbar = forwardRef(({ props }, ref) => {
         </Tooltip>
 
 
-        <Tooltip title="Postlar" placement="right" color="#1D90F4">
+        <Tooltip title="Tüm Gönderiler" placement="right" color="#1D90F4">
           <NavLink to="/allposts" className="w-full py-2 flex items-center justify-center flex-col cursor-pointer transition duration-100 hover:scale-110">
-            <BsChatSquareTextFill size={18} className="transition-all duration-100" />
+            <CgReadme size={18} className="transition-all duration-100" />
           </NavLink>
         </Tooltip>
 
         <Tooltip title="Projelerim" placement="right" color="#1D90F4">
           <div
             className="w-full py-2 flex items-center justify-center flex-col cursor-pointer transition duration-100 hover:scale-110"
-            onClick={handleNavLinkClick}
+            onClick={() => handleNavigate("projects")}
           >
             <AiOutlineFundProjectionScreen
+              size={21}
+              className="transition-all duration-100"
+            />
+          </div>
+        </Tooltip>
+
+        <Tooltip title="İletişim" placement="right" color="#1D90F4">
+          <div
+            className="w-full py-2 flex items-center justify-center flex-col cursor-pointer transition duration-100 hover:scale-110"
+            onClick={() => handleNavigate("contact")}
+          >
+            <RiMailSendLine
               size={21}
               className="transition-all duration-100"
             />

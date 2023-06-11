@@ -8,8 +8,12 @@ import { Helmet } from "react-helmet";
 import BlogCardContainer from "../../components/BlogCardContainer";
 import Contact from "../../components/Contact";
 import Navbar from "../../components/Navbar";
+import { useLocation } from "react-router-dom";
+
 
 const Home = () => {
+  const location = useLocation()
+
   return (
     <SlideAnimation>
       <Helmet>

@@ -148,7 +148,7 @@ export const Settings = () => {
           <div className="w-full flex gap-2">
             {
               isUpdating && (
-                <button disabled={!isUpdating} type="submit" className={`w-full ${isUpdating ? "cursor-pointer hover:bg-blue-btn" : ""} text-white sm:h-12 xs:h-10  bg-gray-btn rounded-lg `}>
+                <button disabled={!isUpdating} type="submit" className={`w-full glassmorphism text-white sm:h-12 xs:h-10  bg-gray-btn rounded-lg `}>
                   Kaydet
                 </button>
               )
