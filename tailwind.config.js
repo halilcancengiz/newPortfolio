@@ -93,7 +93,7 @@ module.exports = {
       fontFamily: {
         open: ['Open Sans', 'sans-serif'],
         montserrat: ['Montserrat Alternates', 'sans-serif'],
-        poppins:['Poppins', 'sans-serif']
+        poppins: ['Poppins', 'sans-serif']
       },
       dropShadow: {
         'blue-btn': '0 10px 10px #1D90F4',
@@ -101,12 +101,14 @@ module.exports = {
         'purple': '0 5px 5px rgb(114,206,96)',
         'tech': '0 0 5px black',
         'like': '0 0 5px gray',
-        "project":"0 0 10px black"
+        "project": "0 0 10px black"
       },
       boxShadow: {
         "border-shadow-blue": "10px 10px 300px 100px #1D90F4",
         "border-shadow-green": "10px 10px 300px 250px #66B956",
         "border-shadow-contact": "0px 15px 10px -10px #1E364C, 0px -15px 10px -10px #1E364C",
+        "contact-icon-linkedin": "2px 2px 20px blue",
+        "contact-icon-github": "0 0 20px blue"
       },
       screens: {
         'xs': '280px',
@@ -153,9 +155,9 @@ module.exports = {
         "html": "#F7941E",
         "git": "#EF4C40",
         "css": "#55A144",
-        "not-found-red":"#C53F3F"
+        "not-found-red": "#C53F3F"
       },
-      borderColor:{
+      borderColor: {
         "javascript": "#F0DB4F",
         "react": "#6563FF",
         "nodejs": "#55A144",
