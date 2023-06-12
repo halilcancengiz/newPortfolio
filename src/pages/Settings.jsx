@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { shallowEqual, useSelector } from "react-redux";
-import { FaUserAlt, FaBirthdayCake, FaUserFriends, BsCloudUploadFill, BsImage, TiTick, AiFillEdit } from "../assets/icon"
-import { DatePicker, Input, Select, Upload } from "antd";
+import { FaUserAlt, FaBirthdayCake, FaUserFriends, BsCloudUploadFill, BsImage } from "../assets/icon"
+import { DatePicker, Input, Select } from "antd";
 import SlideAnimation from "../components/motion/SlideAnimation";
 import { addAndUpdateUserInfo, addUserImage, getUserById, getUserImage } from "../services/firebase/firebase";
 import defaultUserImage from "../assets/images/default.avif"
@@ -65,7 +65,7 @@ export const Settings = () => {
       }
 
     } catch (error) {
-      // Hata durumunda yapılması gerekenler
+      console.log(error);
     }
   }, []);
 
@@ -159,18 +159,3 @@ export const Settings = () => {
     </SlideAnimation >
   );
 };
-
-
-
-// {
-//   isUpdating ?
-//     <Input onChange={(e) => setUserInfo({ ...userInfo, fullName: e.target.value })} value={userInfo.fullName} className="w-full placeholder:text-[#808080] bg-transparent outline-none p-[11px]" type="text" placeholder="Ad Soyad" /> :
-//     <div className="flex w-full items-center">
-//       <p className="w-full text-gray-600 italic">{info.fullName ? info.fullName : "Tam ad belirtilmedi"}</p>
-//       {
-//         isUpdating ? <TiTick size={25} /> : <AiFillEdit size={25} />
-//       }
-
-//     </div>
-
-// }

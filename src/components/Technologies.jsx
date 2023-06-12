@@ -2,13 +2,8 @@ import React, { memo, useEffect, useState } from "react";
 import { Tooltip } from "antd";
 import { useTechnologyList } from "../hooks/useTechnologyList";
 
-
-
-// optimize
 function Technologies() {
-  // hooks
   const allTechnologieList = useTechnologyList();
-  // states
   const [currentTechnologie] = useState(allTechnologieList);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentUrl, setCurrentUrl] = useState("");
@@ -16,15 +11,11 @@ function Technologies() {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      if (currentIndex === currentTechnologie.length - 1) {
-        setCurrentIndex(0);
-      } else {
-        setCurrentIndex(currentIndex + 1);
-      }
+      setCurrentIndex(prevIndex => (prevIndex === currentTechnologie.length - 1 ? 0 : prevIndex + 1));
     }, 1000);
 
     return () => clearInterval(intervalId);
-  }, [currentTechnologie, currentIndex]);
+  }, [currentTechnologie]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -32,21 +23,14 @@ function Technologies() {
     };
 
     window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [width]);
-
-  // lg:min-h-[900px] md:min-h-[800px] sm:min-h-[600px] xs:min-h-[500px] ----> min-h-screen yerine kullanılabilir section alanında
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
-    <section
-      id="technologie"
-      className="min-h-[105vh] w-full overflow-hidden flex items-center flex-col "
-    >
+    <section id="technologie" className="min-h-[105vh] w-full overflow-hidden flex items-center flex-col " >
       <div className="w-full text-center my-10  drop-shadow-dark-btn ">
         <h6 className="header-stroke lg:text-4xl sm:text-3xl xs:text-2xl text-center uppercase">
-         Teknolojiler
+          Teknolojiler
         </h6>
       </div>
       <div className="grow bg-red-700 flex">
@@ -55,12 +39,12 @@ function Technologies() {
             ? currentTechnologie.map((tech, index) => {
               const angle = (360 / currentTechnologie.length) * tech.id;
               const transform = `rotate(${angle}deg) translateX(${width > 768
-                  ? "180px"
-                  : width > 500
-                    ? "150px"
-                    : width > 350
-                      ? "100px"
-                      : "70px"
+                ? "180px"
+                : width > 500
+                  ? "150px"
+                  : width > 350
+                    ? "100px"
+                    : "70px"
                 }) translateY(${width > 768
                   ? "180px"
                   : width > 500
@@ -73,18 +57,8 @@ function Technologies() {
               return (
                 <React.Fragment key={tech.id}>
                   <Tooltip title={tech.name.toUpperCase()}>
-                    <li
-                      onClick={() => { setCurrentUrl(tech.url); setCurrentIndex(tech.id); }}
-                      className={`translate-circle absolute lg:w-20 lg:h-20 md:w-16 md:h-16  sm:h-14 sm:w-14 xs:w-[45px] xs:h-[45px] transition-all duration-500  flex items-center justify-center shadow-md rounded-full shadow-black-400`}
-                      style={{ transform }}
-                    >
-                      <img
-                        name={tech.name}
-                        alt={tech.name}
-                        src={tech.url}
-                        className={`"w-[75%] h-[75%] ${currentIndex === tech.id ? "drop-shadow-tech" : ""
-                          } bg-transparent bg-no-repeat`}
-                      />
+                    <li onClick={() => { setCurrentUrl(tech.url); setCurrentIndex(tech.id); }} className={`translate-circle absolute lg:w-20 lg:h-20 md:w-16 md:h-16  sm:h-14 sm:w-14 xs:w-[45px] xs:h-[45px] transition-all duration-500  flex items-center justify-center shadow-md rounded-full shadow-black-400`} style={{ transform }}>
+                      <img name={tech.name} alt={tech.name} src={tech.url} className={`"w-[75%] h-[75%] ${currentIndex === tech.id ? "drop-shadow-tech" : ""} bg-transparent bg-no-repeat`} />
                       <div
                         style={{
                           borderBottom: `2px solid ${tech.logoColor}`,

@@ -11,7 +11,6 @@ import { AnimatePresence } from "framer-motion";
 import { AddPost } from "../pages/AddPost";
 import PostDetails from "../pages/PostDetails";
 import { AllPosts } from "../pages/AllPosts";
-import { Loading } from "../components/Loading";
 import Navbar from "../components/Navbar";
 import { useSelector } from "react-redux";
 import { createSelector } from "reselect";
@@ -69,7 +68,6 @@ const Routes = () => {
           <Route path="/" element={<Home />} />
           <Route path="/allposts" element={<AllPosts />} />
           <Route path="post/:title" element={<PostDetails />} />
-          <Route path="loading" element={<Loading />} />
 
           {user ? (
             <>

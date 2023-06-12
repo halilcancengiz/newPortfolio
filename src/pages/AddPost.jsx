@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useRedux } from "../hooks/useRedux";
 import ReactMarkdown from "react-markdown";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight";
 import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
@@ -8,10 +7,16 @@ import { addPost, addPostImageToStorage } from "../services/firebase/firebase";
 import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { shallowEqual, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { createSelector } from "reselect";
 
 export const AddPost = () => {
-  const user = useSelector(state => state.user.value, shallowEqual);
+  const selectUser = state => state.user.value;
+  const userSelector = createSelector(
+    selectUser,
+    user => user
+  );
+  const user = useSelector(userSelector);
   const navigate = useNavigate();
 
   const [postImage, setPostImage] = useState(null);
@@ -59,19 +64,16 @@ export const AddPost = () => {
 
   return (
     <div className="bg-transparent w-full min-h-screen px-10  ">
-      <form
-        onSubmit={handleSubmit}
-        className="min-h-screen min-w-screen pt-3 mx-auto flex flex-col gap-10 items-center"
-      >
+      <form onSubmit={handleSubmit} className="min-h-screen min-w-screen pt-3 mx-auto flex flex-col gap-10 items-center" >
         <div className="w-full flex items-center justify-center text-center drop-shadow-dark-btn ">
           <h6 className="header-stroke lg:text-4xl sm:text-3xl xs:text-2xl text-center uppercase">
-            ADD POST
+            Gönderi Ekle
           </h6>
         </div>
         <div className="flex lg:flex-row xs:flex-col items-center flex-row w-full gap-10">
           <div className="flex flex-col lg:w-1/2 xs:w-full h-96  ">
             <span className="h-10 text-white py-10 flex items-center justify-center font-semibold text-xl uppercase">
-              New Post
+              Yeni Gönderi
             </span>
             <textarea
               onChange={handleChange}
@@ -82,7 +84,7 @@ export const AddPost = () => {
           </div>
           <div className="flex flex-col lg:w-1/2 xs:w-full h-96 ">
             <span className="h-10 text-white  py-10 flex items-center justify-center font-semibold text-xl uppercase">
-              Preview
+              Ön izleme
             </span>
             <ReactMarkdown
               className="w-full overflow-x-hidden overflow-auto p-10 bg-white h-full rounded-2xl"
@@ -177,10 +179,7 @@ export const AddPost = () => {
             </div>
           </div>
 
-          <button
-            type="submit"
-            className="flex items-center mt-2 py-2 px-20 uppercase justify-end bg-blue-btn"
-          >
+          <button type="submit" className="flex items-center mt-2 py-2 px-20 uppercase justify-end bg-blue-btn" >
             Ekle
           </button>
         </div>

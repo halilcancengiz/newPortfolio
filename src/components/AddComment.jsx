@@ -16,7 +16,6 @@ export const AddComment = ({ user, postId }) => {
   );
   const userInfo = useSelector(userInfoSelector);
 
-
   const sendComment = async () => {
     if (commentValue) {
       const response = await addComment(user, commentValue.trim(), postId, userInfo.fullName ? userInfo.fullName : "default");

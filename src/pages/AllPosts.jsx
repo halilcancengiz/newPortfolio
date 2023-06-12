@@ -5,7 +5,6 @@ import { NavLink } from "react-router-dom";
 import SlideAnimation from "../components/motion/SlideAnimation";
 import { useSelector } from "react-redux";
 import { createSelector } from "reselect";
-import { useMemo } from "react";
 
 export const AllPosts = () => {
   const selectGetAllPost = state => state.posts.allPosts;

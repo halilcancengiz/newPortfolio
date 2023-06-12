@@ -9,8 +9,6 @@ import CommentsContainer from "../components/CommentsContainer";
 import { Helmet } from "react-helmet";
 import { shallowEqual, useSelector } from "react-redux";
 
-
-
 const PostDetails = () => {
   const { title } = useParams();
   const currentPost = useSelector(state => state.currentPost.value, shallowEqual)

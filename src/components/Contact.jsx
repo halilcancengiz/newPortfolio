@@ -1,11 +1,8 @@
-import React from 'react';
-import contactImage from "../assets/images/contact.png";
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { sendMessage } from '../services/firebase/firebase';
-import { useEffect } from 'react';
+
 
 const Contact = () => {
-  const [buttonStyle, setButtonStyle] = useState()
   const [messages, setMessages] = useState({
     fullName: "",
     subject: "",
@@ -54,17 +51,13 @@ const Contact = () => {
             <label className='w-full mb-2' htmlFor="contact-fullname">Konu</label>
             <input onChange={handleChange} value={messages.subject} name='subject' style={{ boxShadow: " 0 0 10px rgba(0,0,0,.7)" }} className='w-full focus:border-[#2C9BEC] glassmorphism-button mb-2 bg-transparent border-b px-5 py-2 outline-none ' type="text" />
           </div>
-
           <div className='flex w-full flex-col'>
             <label className='w-full mb-2' htmlFor="contact-fullname">Mesaj</label>
-            <textarea onChange={handleChange} value={messages.content} name='content' style={{ boxShadow: " 0 0 10px rgba(0,0,0,.7)" }} className='w-full focus:border-[#2C9BEC] glassmorphism-button resize-none bg-transparent border p-5 outline-none' cols="30" rows="10">
-
-            </textarea>
+            <textarea onChange={handleChange} value={messages.content} name='content' style={{ boxShadow: " 0 0 10px rgba(0,0,0,.7)" }} className='w-full focus:border-[#2C9BEC] glassmorphism-button resize-none bg-transparent border p-5 outline-none' cols="30" rows="10"></textarea>
           </div>
-
           <div className="w-full flex justify-end">
             <div className="glassmorphism-button rounded-[10px] overflow-hidden border flex items-center justify-center my-2 cursor-pointer group bg-transparent relative">
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-0 h-0 z-[-1] bg-gradient-to-r from-blue-500 to-black-700 group-hover:h-full group-hover:w-full group-hover:font-bold animate-pulse transition-all duration-300"></div>
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-0 h-0 z-[-1] rounded-lg bg-gradient-to-r from-blue-500 to-black-700 group-hover:h-full group-hover:w-full group-hover:font-bold animate-pulse transition-all duration-300"></div>
               <button disabled={isDisabled()} className="disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer uppercase w-full h-full py-1 px-10">
                 Gönder
               </button>

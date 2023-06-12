@@ -10,7 +10,6 @@ import { createSelector } from "reselect";
 
 const CommentsContainer = ({ isLoggedIn, postId }) => {
 
-  // reselect
   const selectPostComments = state => state.postComments.value;
   const selectUser = state => state.user.value;
   const selectUserInfo = state => state.user.info;
@@ -19,6 +18,7 @@ const CommentsContainer = ({ isLoggedIn, postId }) => {
     selectUser,
     user => user
   );
+
   const userInfoSelector = createSelector(
     selectUserInfo,
     userInfo => userInfo
@@ -62,21 +62,16 @@ const CommentsContainer = ({ isLoggedIn, postId }) => {
 
   return (
     <div id="commentContainer">
-      <div
-        onClick={showDrawer}
-        className="fixed cursor-pointer bottom-2 left-[50%] translate-x-[-50%] bg-blue-400 h-10 w-32 rounded-full flex items-center justify-center "
-      >
+      <div onClick={showDrawer} className="fixed cursor-pointer bottom-2 left-[50%] translate-x-[-50%] bg-blue-400 h-10 w-32 rounded-full flex items-center justify-center " >
         <FaComments size={25} />
       </div>
       <Drawer title="YORUMLAR" placement="right" onClose={onClose} open={open}>
         {
           isLoggedIn ? <AddComment postId={postId} user={user} /> :
             <div className="mb-3">
-
               <NavLink className="text-blue-btn capitalize" to="/membership/login">Yorum yapabilmek için lütfen giriş yapın.</NavLink>
             </div>
         }
-
         {
           postComments && [...postComments]
             .sort((a, b) => {

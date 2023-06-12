@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import { Popconfirm, Tooltip } from "antd";
 import { AiFillLike, AiFillHeart, TiTick, RxCross2 } from "../assets/icon";
 import { BsLightbulbFill } from "../assets/icon";
@@ -69,7 +69,7 @@ const Comment = ({ isVisible, isLoggedIn, detail, user, postComments, userInfo }
         setImage(defaultUserImage);
       }
     } catch (error) {
-      // Hata durumunda yapılması gerekenler
+      console.log();
     }
   }, [author]);
 
@@ -78,7 +78,6 @@ const Comment = ({ isVisible, isLoggedIn, detail, user, postComments, userInfo }
       const allUsersInfo = await getAllUsersInfo();
       setAllUsersInfo(allUsersInfo);
     } catch (error) {
-      // Hata durumunda yapılması gerekenler
       console.error(error);
     }
   }, []);

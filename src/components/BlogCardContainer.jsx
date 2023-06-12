@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { memo, useCallback, useEffect, useMemo } from 'react';
 import { getPosts } from '../services/firebase/firebase';
 import { Empty } from 'antd';
 import BlogCard from './BlogCard';
@@ -7,16 +7,12 @@ import { createSelector } from 'reselect';
 
 const BlogCardContainer = () => {
     //reselect start
-
     const selectAllPosts = state => state.posts.allPosts;
-
     const postsSelector = createSelector(
         selectAllPosts,
         posts => posts
     );
-
     const posts = useSelector(postsSelector);
-
     //reselect end
 
     const fetchData = useCallback(async () => {

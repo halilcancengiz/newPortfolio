@@ -1,16 +1,15 @@
 import React, { useCallback, useEffect, useState } from 'react'
-// import { SlDislike, SlLike } from "../assets/icon"
-import author from "../assets/images/author.jpeg"
-import { TiTick, RxCross2 } from "../assets/icon"
-import { dateTimeFormat } from '../utils/dateTimeFormatHelper'
 import { createSelector } from 'reselect'
 import { useSelector } from 'react-redux'
+import author from "../assets/images/author.jpeg"
+import defaultUserImage from "../assets/images/default.avif"
+import { TiTick, RxCross2 } from "../assets/icon"
+import { dateTimeFormat } from '../utils/dateTimeFormatHelper'
 import { deleteReply, getAllUsersInfo, getUserImage, updateReply } from '../services/firebase/firebase'
 import { Popconfirm, Tooltip } from 'antd';
-import defaultUserImage from "../assets/images/default.avif"
 import { findAuthorName } from '../utils/findAuthorName'
 
-export const CommentReply = ({ isLoggedIn, replyDetail, commentId, info }) => {
+export const CommentReply = ({ replyDetail, commentId }) => {
     const [showAllText, setShowAllText] = useState(false)
     const [isReplyEditing, setIsReplyEditing] = useState(false)
     const [editReplyContent, setEditReplyContent] = useState(replyDetail.content)
@@ -52,7 +51,6 @@ export const CommentReply = ({ isLoggedIn, replyDetail, commentId, info }) => {
             const allUsersInfo = await getAllUsersInfo();
             setAllUsersInfo(allUsersInfo);
         } catch (error) {
-            // Hata durumunda yapılması gerekenler
             console.error(error);
         }
     }, []);
@@ -66,7 +64,7 @@ export const CommentReply = ({ isLoggedIn, replyDetail, commentId, info }) => {
         <div className="flex items-start text-xs mt-5 pl-5">
             <div className="mr-3 flex">
                 <div className="bg-blue-400 border-2 border-[#1E3B55] h-7 w-7 rounded-full flex items-center justify-center overflow-hidden">
-                    <img className="w-full h-full object-co" src={image} alt="" />
+                    <img className="w-full h-full object-cover" src={image} alt="" />
                 </div>
             </div>
 
@@ -128,24 +126,6 @@ export const CommentReply = ({ isLoggedIn, replyDetail, commentId, info }) => {
                         }
                     </div>
                 </div>
-                {/* <div className="flex items-center mt-2 w-full ">
-                    <div className="flex w-full justify-between ">
-                        {
-                            isLoggedIn &&
-                            <div className="flex gap-2">
-                                <button className="group cursor-pointer text-gray-500 hover:rotate-[-45deg] hover:scale-125 transition-all duration-300">
-                                    <SlLike className="text-black group-hover:text-green-700" />
-                                </button>
-
-                                <button className="group cursor-pointer text-gray-500 hover:rotate-[-45deg] hover:scale-125 transition-all duration-300">
-                                    <SlDislike className="text-black group-hover:text-red-400" />
-                                </button>
-                            </div>
-                        }
-
-                        <div className="font-medium text-xs flex justify-end w-full">{likesCount}<span className="ml-1">beğeni</span></div>
-                    </div>
-                </div> */}
             </div>
         </div>
     )

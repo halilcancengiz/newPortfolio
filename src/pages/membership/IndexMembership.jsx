@@ -1,6 +1,5 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { motion } from "framer-motion";
 import SlideAnimation from "../../components/motion/SlideAnimation";
 
 const IndexMembership = () => {
@@ -20,13 +19,13 @@ const IndexMembership = () => {
           >
             <NavLink
               to="register"
-              className="flex items-center uppercase justify-center w-1/2 sm:h-12 xs:h-10  bg-gray-btn rounded-full hover:bg-blue-btn"
+              className="flex items-center uppercase justify-center w-1/2 sm:h-12 xs:h-10 glassmorphism-button bg-gray-btn rounded-full hover:bg-blue-btn"
             >
               Kayıt Ol
             </NavLink>
             <NavLink
               to="login"
-              className="flex items-center uppercase justify-center w-1/2 sm:h-12 xs:h-10  bg-gray-btn rounded-full hover:bg-blue-btn"
+              className="flex items-center uppercase justify-center w-1/2 sm:h-12 xs:h-10 glassmorphism-button  bg-gray-btn rounded-full hover:bg-blue-btn"
             >
               Giriş Yap
             </NavLink>

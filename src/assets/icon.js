@@ -1,55 +1,43 @@
-export { AiFillEye } from 'react-icons/ai';
-export { AiFillEyeInvisible } from 'react-icons/ai';
-export { IoMail } from 'react-icons/io5';
-export { BsTwitter } from 'react-icons/bs';
-export { FcGoogle } from 'react-icons/fc';
-export { SiFacebook } from 'react-icons/si';
-export { BsChatSquareTextFill } from 'react-icons/bs'; /*blogs */
-export { CgReadme } from 'react-icons/cg'; /*posts */
-export { RiMailSendLine } from 'react-icons/ri'; /*posts */
-export { IoSettingsSharp } from 'react-icons/io5'; /*settings */
-export { MdOutlineFavorite } from 'react-icons/md'; /*favorites */
-export { MdOutlineAddCircle } from 'react-icons/md'; /*favorites */
-export { TbInfoHexagon } from 'react-icons/tb'; /*aboutme */
-export { VscSignIn } from 'react-icons/vsc'; /*signIn */
-export { VscSignOut } from 'react-icons/vsc'; /*signIn */
-export { FiMenu } from 'react-icons/fi'; /*menu */
-export { FaHome } from 'react-icons/fa'; /*home */
-// Tools
-export { FaBold } from 'react-icons/fa'; /*bold */
-export { FaItalic } from 'react-icons/fa'; /*bold */
-export { FaUnderline } from 'react-icons/fa'; /*bold */
-export { RxTextAlignLeft } from 'react-icons/rx'; /*left */
-export { RxTextAlignRight } from 'react-icons/rx'; /*right */
-export { RxTextAlignJustify } from 'react-icons/rx'; /*justify */
-export { RxTextAlignCenter } from 'react-icons/rx'; /*center */
-export { RiFontSize } from 'react-icons/ri'; /*Font Size */
-export { BiFontFamily } from 'react-icons/bi'; /*Font Family */
-export { TbTextColor } from 'react-icons/tb'; /*Text Color */
-export { BiImageAdd } from 'react-icons/bi'; /*Add İmage */
-export { AiOutlineClockCircle } from 'react-icons/ai'; /*Add İmage */
-export { FaRegComments } from 'react-icons/fa'; /*Add İmage */
-export { VscCopy } from 'react-icons/vsc'; /*Add İmage */
-export { FcCheckmark } from 'react-icons/fc'; /*Add İmage */
-export { FaComments } from 'react-icons/fa'; /*comments */
-export { SlLike } from 'react-icons/sl'; /*like */
-export { SlDislike } from 'react-icons/sl'; /*dislike */
-export { RiSendPlaneFill } from 'react-icons/ri'; /*dislike */
-export { FaLaughBeam } from 'react-icons/fa'; /*FaLaughBeam emoji */
-export { AiFillLike } from 'react-icons/ai'; /*FaLaughBeam emoji */
-export { BsLightbulbFill } from 'react-icons/bs'; /*FaLaughBeam emoji */
-export { AiFillHeart } from 'react-icons/ai'; /*FaLaughBeam emoji */
-export { TiTick } from 'react-icons/ti'; /*FaLaughBeam emoji */
-export { RxCross2 } from 'react-icons/rx'; /*FaLaughBeam emoji */
-export { MdFilterAltOff } from 'react-icons/md'; /*FaLaughBeam emoji */
-//Settings
-export { FaUserAlt } from 'react-icons/fa'; /*FaLaughBeam emoji */
-export { FaBirthdayCake } from 'react-icons/fa'; /*birth */
-export { BsGenderAmbiguous } from 'react-icons/bs'; /*birth */
-export { FaUserFriends } from 'react-icons/fa'; /*birth */
-export { BsCloudUploadFill } from 'react-icons/bs'; /*upload */
-export { BsImage } from 'react-icons/bs'; /*image */
-export { AiFillEdit } from 'react-icons/ai'; /*edit */
-export { SlScreenDesktop } from 'react-icons/sl'; /*live */
-export { FiGithub } from 'react-icons/fi'; /*github */
-export { AiOutlineFundProjectionScreen } from 'react-icons/ai'; /*project icon */
+export { AiFillEye } from 'react-icons/ai'; // Göz simgesi
+export { AiFillEyeInvisible } from 'react-icons/ai'; // Görünmez göz simgesi
+export { AiFillHeart } from 'react-icons/ai'; // Kalp simgesi
+export { AiFillLike } from 'react-icons/ai'; // Beğenme simgesi
+export { AiOutlineClockCircle } from 'react-icons/ai'; // Saat çemberi simgesi
+export { AiOutlineFundProjectionScreen } from 'react-icons/ai'; // Fon projeksiyon ekranı simgesi
+export { BsCloudUploadFill } from 'react-icons/bs'; // Bulut yükleme simgesi
+export { BsImage } from 'react-icons/bs'; // Resim simgesi
+export { BsLightbulbFill } from 'react-icons/bs'; // Ampul dolu simgesi
+export { BsTwitter } from 'react-icons/bs'; // Twitter simgesi
+export { CgReadme } from 'react-icons/cg'; // Readme simgesi
+export { FaBirthdayCake } from 'react-icons/fa'; // Doğum günü pastası simgesi
+export { FaComments } from 'react-icons/fa'; // Yorumlar simgesi
+export { FaHome } from 'react-icons/fa'; // Ev simgesi
+export { FaLaughBeam } from 'react-icons/fa'; // Gülme simgesi
+export { FaRegComments } from 'react-icons/fa'; // Onaylanmış yorumlar simgesi
+export { FaUserAlt } from 'react-icons/fa'; // Alternatif kullanıcı simgesi
+export { FaUserFriends } from 'react-icons/fa'; // Arkadaşlar simgesi
+export { FcGoogle } from 'react-icons/fc'; // Google simgesi
+export { FiGithub } from 'react-icons/fi'; // Github simgesi
+export { FiMenu } from 'react-icons/fi'; // Menü simgesi
+export { IoMail } from 'react-icons/io5'; // Posta simgesi
+export { IoSettingsSharp } from 'react-icons/io5'; // Ayarlar simgesi
+export { MdFilterAltOff } from 'react-icons/md'; // Filtre kapat simgesi
+export { RiMailSendLine } from 'react-icons/ri'; // Posta gönder simgesi
+export { RiSendPlaneFill } from 'react-icons/ri'; // Uçak dolu simgesi
+export { RxCross2 } from 'react-icons/rx'; // Çarpı simgesi
+export { SiFacebook } from 'react-icons/si'; // Facebook simgesi
+export { SlScreenDesktop } from 'react-icons/sl'; // Masaüstü ekran simgesi
+export { TiTick } from 'react-icons/ti'; // İşaret simgesi
+export { VscSignIn } from 'react-icons/vsc'; // Oturum açma simgesi
+export { VscSignOut } from 'react-icons/vsc'; // Oturumu kapatma simgesi
+
+
+
+
+
+
+
+
+
+
+

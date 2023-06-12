@@ -1,37 +1,23 @@
 import React, { useState } from "react";
-import {
-  AiFillEye,
-  AiFillEyeInvisible,
-  IoMail,
-  BsTwitter,
-  SiFacebook,
-  FcGoogle,
-} from "../../assets/icon";
+import { AiFillEye, AiFillEyeInvisible, IoMail } from "../../assets/icon";
 import { NavLink, useNavigate } from "react-router-dom";
 import { loginWithEmailAndPassword } from "../../services/firebase/firebase";
 import SlideAnimation from "../../components/motion/SlideAnimation";
 
 
 const Login = () => {
-  // REACT-ROUTER
+
   const navigate = useNavigate();
-  // STATES
+
   const [login, setLogin] = useState({
     email: "",
     password: "",
   });
   const [passwordVisibility, setPasswordVisibility] = useState(false);
-  const [confirmPasswordVisibility, setConfirmPasswordVisibility] =
-    useState(false);
-  const [otherLoginMethod, setOtherLoginMethods] = useState(false);
+  const [confirmPasswordVisibility, setConfirmPasswordVisibility] = useState(false);
 
-  // FUNCTIONS
-  const changeMethod = () => {
-    setOtherLoginMethods(!otherLoginMethod);
-  };
-  const handleChange = (e) => {
-    setLogin({ ...login, [e.target.name]: e.target.value });
-  };
+  const handleChange = (e) => setLogin({ ...login, [e.target.name]: e.target.value });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const isValid = await loginWithEmailAndPassword(
@@ -61,20 +47,10 @@ const Login = () => {
             </div>
           </div>
 
-          <form
-            onSubmit={handleSubmit}
-            className={`my-5 flex-col flex ${otherLoginMethod ? "hidden" : "block"
-              }`}
-          >
-            <div
-              id="login-email-container"
-              className="flex justify-between items-center px-2 bg-dark-input border-2 border-transparent mx-2 mt-3 rounded-xl focus-within:border-twitter "
-            >
+          <form onSubmit={handleSubmit} className="my-5 px-2 flex-col flex" >
+            <div id="login-email-container" className="flex justify-between items-center glassmorphism-button px-2 bg-dark-input border-2 border-transparent mt-3 rounded-xl focus-within:border-twitter ">
               <div className="flex flex-col grow">
-                <label
-                  className="ml-3 mt-1 text-xs text-gray-400 "
-                  htmlFor="email"
-                >
+                <label className="ml-3 mt-1 text-xs text-gray-400 " htmlFor="email" >
                   E-posta
                 </label>
                 <input
@@ -89,12 +65,9 @@ const Login = () => {
               <IoMail color="white" className="flex ml-2" size={23} />
             </div>
 
-            <div className="flex justify-between items-center px-2 bg-dark-input border-2 border-transparent mx-2 my-3 rounded-xl  focus-within:border-twitter">
+            <div className="flex justify-between glassmorphism-button items-center px-2 bg-dark-input border-2 border-transparent my-3 rounded-xl  focus-within:border-twitter">
               <div className="flex flex-col grow">
-                <label
-                  className="ml-3 mt-1 text-xs text-gray-400 "
-                  htmlFor="email"
-                >
+                <label className="ml-3 mt-1 text-xs text-gray-400 " htmlFor="email" >
                   Parola
                 </label>
                 <input
@@ -105,10 +78,7 @@ const Login = () => {
                   type={passwordVisibility ? "text" : "password"}
                 />
               </div>
-              <div
-                className="flex ml-2"
-                onClick={() => setPasswordVisibility(!passwordVisibility)}
-              >
+              <div className="flex ml-2" onClick={() => setPasswordVisibility(!passwordVisibility)} >
                 {passwordVisibility ? (
                   <AiFillEyeInvisible color="white" size={23} />
                 ) : (
@@ -116,30 +86,11 @@ const Login = () => {
                 )}
               </div>
             </div>
-            <button
-              type="submit"
-              className={`w-full text-white sm:h-12 xs:h-10  bg-gray-btn rounded-full hover:bg-blue-btn ${otherLoginMethod ? "hidden" : "block"
-                }`}
-            >
+            <button type="submit" className="w-full text-white sm:h-12 xs:h-10  bg-gray-btn rounded-full glassmorphism-button hover:bg-blue-btn" >
               Giriş Yap
             </button>
           </form>
-          <div className="flex flex-col">
-            <div
-              className={`my-5 gap-3 flex flex-col items-center justify-center sm:p-0 xs:px-2  ${otherLoginMethod ? "block" : "hidden"
-                }`}
-            >
-              <div className="sm:h-16 xs:h-12 bg-dark-input rounded-xl flex items-center justify-center w-full cursor-pointer hover:border-2 border-twitter">
-                <BsTwitter size={30} className="text-twitter" />
-              </div>
-              <div className="sm:h-16 xs:h-12 bg-dark-input rounded-xl flex items-center justify-center w-full cursor-pointer hover:border-2 border-google">
-                <FcGoogle size={30} />
-              </div>
-              <div className="sm:h-16 xs:h-12 bg-dark-input rounded-xl flex items-center justify-center w-full cursor-pointer  hover:border-2 border-border-blue">
-                <SiFacebook size={30} className="text-facebook" />
-              </div>
-            </div>
-          </div>
+
         </div>
       </div>
     </SlideAnimation>

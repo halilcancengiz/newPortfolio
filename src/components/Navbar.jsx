@@ -1,4 +1,4 @@
-import React, { forwardRef, memo, useEffect, useState } from "react";
+import React, { forwardRef, memo } from "react";
 import { IoSettingsSharp, VscSignIn, VscSignOut, FaHome, AiOutlineFundProjectionScreen, CgReadme, RiMailSendLine } from "../assets/icon";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { logout } from "../services/firebase/firebase";
@@ -17,8 +17,6 @@ const Navbar = forwardRef(({ props }, ref) => {
     navigate("/", { replace: true });
   };
 
-  
-
   const handleNavigate = (element) => {
     const target = document.querySelector(`#${element}`);
     if (target && location.pathname === "/") {
@@ -33,8 +31,6 @@ const Navbar = forwardRef(({ props }, ref) => {
       }, 500);
     }
   };
-
-
 
   return (
     <div ref={ref}>
@@ -53,26 +49,14 @@ const Navbar = forwardRef(({ props }, ref) => {
         </Tooltip>
 
         <Tooltip title="Projelerim" placement="right" color="#1D90F4">
-          <div
-            className="w-full py-2 flex items-center justify-center flex-col cursor-pointer transition duration-100 hover:scale-110"
-            onClick={() => handleNavigate("projects")}
-          >
-            <AiOutlineFundProjectionScreen
-              size={21}
-              className="transition-all duration-100"
-            />
+          <div className="w-full py-2 flex items-center justify-center flex-col cursor-pointer transition duration-100 hover:scale-110" onClick={() => handleNavigate("projects")}>
+            <AiOutlineFundProjectionScreen size={21} className="transition-all duration-100" />
           </div>
         </Tooltip>
 
         <Tooltip title="İletişim" placement="right" color="#1D90F4">
-          <div
-            className="w-full py-2 flex items-center justify-center flex-col cursor-pointer transition duration-100 hover:scale-110"
-            onClick={() => handleNavigate("contact")}
-          >
-            <RiMailSendLine
-              size={21}
-              className="transition-all duration-100"
-            />
+          <div className="w-full py-2 flex items-center justify-center flex-col cursor-pointer transition duration-100 hover:scale-110" onClick={() => handleNavigate("contact")}>
+            <RiMailSendLine size={21} className="transition-all duration-100" />
           </div>
         </Tooltip>
 

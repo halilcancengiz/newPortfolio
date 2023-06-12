@@ -1,7 +1,6 @@
 import React from "react";
 import { BsTwitter, FcGoogle, SiFacebook } from "../assets/icon";
 
-// optimize
 const Footer = () => {
 
   const smoothScroll = () => {
@@ -26,7 +25,7 @@ const Footer = () => {
 
       <div className="flex flex-col items-center justify-center my-10">
         <div onClick={smoothScroll} className="cursor-pointer relative group overflow-hidden mb-5 glassmorphism-button border px-16 py-1 uppercase font-medium transition-all duration-500">
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-0 h-0 z-[-1] bg-gradient-to-r from-blue-500 to-black-700 group-hover:h-full group-hover:w-full group-hover:font-bold group-hover:duration-500 animate-pulse transition-all duration-300"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-0 h-0 z-[-1] rounded-lg bg-gradient-to-r from-blue-500 to-black-700 group-hover:h-full group-hover:w-full group-hover:font-bold group-hover:duration-500 animate-pulse transition-all duration-300"></div>
           iletişim
         </div>
         <div className="flex items-center justify-center gap-10">

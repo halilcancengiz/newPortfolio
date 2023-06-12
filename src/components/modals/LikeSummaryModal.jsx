@@ -1,7 +1,6 @@
 import React, { useState, memo, useMemo } from 'react';
 import { Modal } from 'antd';
 import { FaLaughBeam, BsLightbulbFill, AiFillLike, AiFillHeart, MdFilterAltOff } from "../../assets/icon"
-import useTypeIcon from '../../hooks/useTypeIcon';
 import { checkIfTypeExists } from '../../utils/checkIfTypeExists';
 import { findAuthorName } from '../../utils/findAuthorName';
 import UserImage from '../UserImage';

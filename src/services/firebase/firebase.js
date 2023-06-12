@@ -1,13 +1,13 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
-import { toast } from "react-toastify";
-import { store } from "../../app/store";
-import { setInfo, setUser } from "../../features/user";
 import { addDoc, collection, getDocs, getFirestore, increment, onSnapshot, query, updateDoc, where, doc, arrayUnion, getDoc, arrayRemove, deleteDoc, setDoc } from "firebase/firestore";
+import { deleteObject, getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { setInfo, setUser } from "../../features/user";
 import { setAllPosts } from "../../features/allPosts";
 import { setCurrentPost } from "../../features/currentPost";
-import { deleteObject, getDownloadURL, getMetadata, getStorage, ref, uploadBytes } from "firebase/storage";
 import { setPostComments } from "../../features/postComments";
+import { toast } from "react-toastify";
+import { store } from "../../app/store";
 
 
 const firebaseConfig = {
@@ -231,7 +231,7 @@ export const sendMessage = async (messageInfo) => {
             const timeDiff = 5 * 60 * 1000 - (currentTime - lastMessageTime);
             const remainingSeconds = Math.ceil(timeDiff / 1000);
 
-            toast.warning(`5 dakika içinde tekrar mesaj gönderemezsiniz.Kalan süre: ${remainingSeconds} saniye.`,{
+            toast.warning(`5 dakika içinde tekrar mesaj gönderemezsiniz.Kalan süre: ${remainingSeconds} saniye.`, {
                 autoClose: 1500
             });
             return false;
@@ -252,7 +252,7 @@ export const sendMessage = async (messageInfo) => {
                 timestamp: currentTime.getTime(), // Mesajın zaman damgası
             };
             const docRef = await addDoc(collection(db, "messages"), message);
-            toast.success("Mesajınız başarıyla iletilmiştir.",{
+            toast.success("Mesajınız başarıyla iletilmiştir.", {
                 autoClose: 1500
             });
 
