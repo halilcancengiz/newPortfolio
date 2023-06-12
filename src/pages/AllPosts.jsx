@@ -41,7 +41,7 @@ export const AllPosts = () => {
     <SlideAnimation>
       <div className="w-full flex items-center justify-center py-5 text-center my-10 drop-shadow-dark-btn ">
         <h6 className="header-stroke lg:text-4xl sm:text-3xl xs:text-2xl text-center uppercase">
-          ALL POSTS
+          Tüm Gönderiler
         </h6>
       </div>
       <div className="max-w-[1300px] mx-auto px-5 ">
@@ -50,7 +50,7 @@ export const AllPosts = () => {
           value={search}
           className="w-full h-[46px] rounded-2xl px-5 mb-3 outline-none"
           type="text"
-          placeholder="Search Post"
+          placeholder="Gönderi ara"
         />
       </div>
       <div className="max-w-[1300px] mx-auto px-5 flex flex-col gap-3">
