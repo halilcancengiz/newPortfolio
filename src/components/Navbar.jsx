@@ -12,9 +12,11 @@ const Navbar = forwardRef(({ props }, ref) => {
   const user = useSelector(state => state.user.value);
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    logout();
-    navigate("/", { replace: true });
+  const handleLogout = async() => {
+    const response = await logout();
+    if(response === null){
+      navigate("/", { replace: true });
+    }
   };
 
   const handleNavigate = (element) => {

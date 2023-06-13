@@ -111,13 +111,14 @@ export const loginWithEmailAndPassword = async (email, password) => {
 }
 
 // Üye çıkışı
-export const logout = () => {
+export const logout = async () => {
     try {
-        signOut(auth).then(() => {
+        await signOut(auth).then(() => {
             toast.success("Başarıyla çıkış yaptınız.", {
                 autoClose: 1500
             })
         })
+        return null
     } catch (error) {
         const errorMessage = error.message
         toast.warning(errorMessage, {
