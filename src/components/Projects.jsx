@@ -18,9 +18,9 @@ const Projects = () => {
         {allProjects &&
           allProjects.map((project) => (
             <div key={project.id} className="flex flex-col max-w-[450px] scale-[.85]">
-              <img className="drop-shadow-project hover:scale-110 h-60 transition-all duration-500 " src={project.image} alt={project.name} />
+              <img className="drop-shadow-project hover:scale-110 aspect-[16/9] transition-all duration-500 " src={project.image} alt={project.name} />
               <div className="h-40 text-center rounded-2xl flex flex-col items-center">
-                <h3 className="sm:text-3xl header-stroke xs:text-lg capitalize border-b">{project.name}</h3>
+                <h3 className="sm:text-3xl header-stroke xs:text-lg capitalize border-b block line-clamp-1">{project.name}</h3>
                 <Tooltip title={project.description} placement="bottom-center">
                   <p className="my-auto text-lg line-clamp-3 text-justify tracking-tight">
                     {project.description}

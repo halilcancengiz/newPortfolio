@@ -137,10 +137,10 @@ body,
 }
 
 .line-clamp-1 {
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  display: -webkit-box!important;
+  -webkit-line-clamp: 1!important;
+  -webkit-box-orient: vertical!important;
+  overflow: hidden!important;
 }
 
 .line-clamp-3 {

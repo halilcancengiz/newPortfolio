@@ -2,6 +2,7 @@ import React from "react";
 import movieAppImage from "../assets/images/projectsImage/movieapp.png"
 import portfolioImage from "../assets/images/projectsImage/portfolio.png"
 import weatherAppImage from "../assets/images/projectsImage/weatherapp.png"
+import colorGeneratorAppImage from "../assets/images/projectsImage/colorgeneratorapp.png"
 
 export const useProjectList = () => {
   const projects = [
@@ -31,6 +32,15 @@ export const useProjectList = () => {
       liveDemoUrl: "https://halilcancengiz.vercel.app/",
       description:
         "Bu uygulama benim portföy sitemdir. Burada, frontend teknolojileri hakkında yazdığım makaleler ve projelerim yer almaktadır. Kullanıcılar, bu yazılar altında birbirleriyle iletişim kurabilir ve kendi bilgilerini güncelleyebilirler. Ayrıca, projelerimin canlı linkleri ve GitHub repository'leri de paylaşılmıştır. Bu sayede, ziyaretçiler benim hakkımda daha fazla bilgi edinebilir ve iletişim formunu kullanarak bana ulaşabilirler. Genel olarak, bu portföy sitem, benim yeteneklerimi ve çalışmalarımı sergileyen bir platformdur ve misafirlerimle karşılıklı bir şekilde bilgi alışverişi yapmamı sağlar.",
+    },
+    {
+      id: 3,
+      name: "Color Palette Generator App",
+      image: colorGeneratorAppImage,
+      githubUrl: "https://github.com/halilcancengiz/color-palette-generator",
+      liveDemoUrl: "https://color-palette-generator-phi.vercel.app/",
+      description:
+        "Bu uygulama, size rastgele bir renk sunar ve bu renge uygun olarak dört farklı varyasyon daha oluşturur. Bu oluşturulan renklerin hexadecimal renk kodlarını kopyalayarak, projelerinizde kullanabilirsiniz. Bu uygulama, renklerin çeşitliliğini artırırken aynı zamanda projelerinizin görsel çekiciliğini de artırmanızı sağlar. Renk kodları, kullanımınızı kolaylaştırmak adına projelerinizde hızlıca kullanabileceğiniz bir biçimde sunulmaktadır.",
     },
   ];
 
