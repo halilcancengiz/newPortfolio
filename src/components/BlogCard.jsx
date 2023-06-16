@@ -86,7 +86,7 @@ const BlogCard = ({ post, index }) => {
                 </div>
                 <div className="xs:w-full sm:max-w-1/3  xs:min-w-[125px] flex justify-end h-8  rounded-full group">
                   <NavLink onClick={() => updateReadingCount(post.postId)} to={`/post/${post.postTitle.replace(/\s+/g, "-")}`} className="w-full h-full glassmorphism-button  text-sm relative font-bold overflow-hidden flex items-center justify-center group border border-blue-btn sm:max-w-[125px] rounded-xl xs:max-w-none transition-all duration-500 hover:bg-blue-btn hover:bg-opacity-30" >
-                    Read More
+                    Devamını oku
                   </NavLink>
                 </div>
               </div>
