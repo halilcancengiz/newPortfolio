@@ -72,6 +72,9 @@ const PostDetails = () => {
                 <article className="text-base inline-block max-w-full mb-5" {...props} />
 
               ),
+              blockquote: ({ node, ...props }) => (
+                  <blockquote className="text-base max-w-full mb- w-full text-white font-bold relative before:content-[''] before:absolute before:left-0 before:top-0 before:w-2 before:bg-white before:h-full pl-5" {...props} />
+              ),
               img: ({ node, ...props }) => (
                 <div className="max-w-full mx-auto">
                   <img
