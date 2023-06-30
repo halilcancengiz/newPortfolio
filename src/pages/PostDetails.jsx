@@ -19,11 +19,13 @@ const PostDetails = () => {
       getPostById(title)
     }
   }, [title]);
+
+  console.log(currentPost);
   return (
     <>
       <Helmet>
         <title>{title}</title>
-        <meta name="description" content={currentPost.metaDescription} />
+        <meta name="description" content={currentPost ? currentPost.metaDescription : ""} />
         <html lang="tr" />
         <link rel="canonical" href={window.location.href} />
         <meta name="robots" content="index, follow" />
@@ -73,7 +75,7 @@ const PostDetails = () => {
 
               ),
               blockquote: ({ node, ...props }) => (
-                  <blockquote className="text-base max-w-full mb- w-full text-white font-bold relative before:content-[''] before:absolute before:left-0 before:top-0 before:w-2 before:bg-white before:h-full pl-5" {...props} />
+                <blockquote className="text-base max-w-full mb- w-full text-white font-bold relative before:content-[''] before:absolute before:left-0 before:top-0 before:w-2 before:bg-white before:h-full pl-5" {...props} />
               ),
               img: ({ node, ...props }) => (
                 <div className="max-w-full mx-auto">
@@ -86,7 +88,7 @@ const PostDetails = () => {
             }}
           />
         )}
-        <CommentsContainer postId={currentPost.postId} isLoggedIn={user} />
+        <CommentsContainer postId={currentPost ? currentPost.postId : ""} isLoggedIn={user} />
       </main>
     </>
   );
