@@ -1,7 +1,6 @@
 import { useCallback } from "react";
 import Particles from "react-particles";
 import { loadFull } from "tsparticles";
-import imagetype from "../assets/images/membershipbg.jpg"
 
 const Particle = () => {
     const particlesInit = useCallback(async engine => {
@@ -13,6 +12,7 @@ const Particle = () => {
 
     return (
         <Particles
+            className="w-full h-screen absolute"
             id="tsparticles"
             init={particlesInit}
             loaded={particlesLoaded}
@@ -40,7 +40,7 @@ const Particle = () => {
                             quantity: 4,
                         },
                         repulse: {
-                            enable:true,
+                            enable: true,
                             distance: 200,
                             duration: 0.4,
                         },
@@ -65,12 +65,12 @@ const Particle = () => {
                         enable: true,
                         outModes: {
                             default: "bounce",
-                            bottom:"out"
+                            bottom: "out"
                         },
                         random: false,
                         speed: 2,
                         straight: false,
-                        trail:{
+                        trail: {
 
                         }
                     },
@@ -90,6 +90,9 @@ const Particle = () => {
                     size: {
                         value: { min: 1, max: 5 },
                     },
+                },
+                fullScreen: {
+                    enable: false,
                 },
                 detectRetina: true,
             }}

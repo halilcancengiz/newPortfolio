@@ -57,7 +57,7 @@ export const AllPosts = () => {
           posts && filteredList.map(post => (
             <Collapse
               key={post.postId}
-              className="glassmorphism"
+              className="glassmorphism line-clamp-1"
               size="medium"
               items={[
                 {

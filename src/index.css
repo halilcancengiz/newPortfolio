@@ -137,10 +137,10 @@ body,
 }
 
 .line-clamp-1 {
-  display: -webkit-box!important;
-  -webkit-line-clamp: 1!important;
-  -webkit-box-orient: vertical!important;
-  overflow: hidden!important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 1 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
 }
 
 .line-clamp-3 {
@@ -242,6 +242,13 @@ pre div {
 .ant-collapse-header-text,
 .ant-collapse-expand-icon {
   color: white;
+}
+
+.ant-collapse-header-text {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
 }
 
 .ant-collapse-item {
