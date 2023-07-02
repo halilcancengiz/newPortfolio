@@ -73,7 +73,7 @@ const BlogCard = ({ post, index }) => {
               <div className="w-full  flex sm:items-center xs:items-start xs:flex-col sm:flex-row justify-between my-5 sm:gap-10 xs:gap-4">
                 <div className="sm:w-1/2 xs:w-full flex items-center">
                   <div className="w-8 h-8 mr-2">
-                    <img src={authorImg} id="author-image" className="h-full w-full rounded-full  object-fit flex items-center justify-center " alt="author" />
+                    <img src={authorImg} id="author-image" className="h-full w-full rounded-full  object-contain flex items-center justify-center " alt="author" />
                   </div>
                   <div className="flex flex-col">
                     <span id="author-name" className="text-xs  italic whitespace-nowrap text-blue-btn" >
