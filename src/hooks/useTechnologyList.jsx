@@ -7,6 +7,7 @@ import firebaseLogo from "../assets/images/logos/firebase-logo.png"
 import gitLogo from "../assets/images/logos/git-logo.png"
 import bootstrapLogo from "../assets/images/logos/bootstrap-logo.png"
 import tailwindLogo from "../assets/images/logos/tailwind-logo.png"
+import typescriptLogo from "../assets/images/logos/typescript-logo.png"
 
 export const useTechnologyList = () => { 
   const technologies = [
@@ -63,6 +64,12 @@ export const useTechnologyList = () => {
       name: "css",
       url: cssLogo,
       logoColor:"#33A9DC"
+    },
+    {
+      id: 9,
+      name: "typescript",
+      url: typescriptLogo,
+      logoColor:"#2D79C7"
     },
   ]
 
