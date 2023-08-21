@@ -31,7 +31,7 @@ const LikeSummaryModal = ({ postComments, count, commentId, allUsersInfo }) => {
 
     return (
         <>
-            <span className='font-semibold cursor-pointer' type="primary" onClick={showModal}>
+            <span className='font-semibold  cursor-pointer' type="primary" onClick={showModal}>
                 {count} beğeni
             </span>
             <Modal className='px-0' title="Reaksiyonlar" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
