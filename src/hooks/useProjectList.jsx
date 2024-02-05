@@ -3,6 +3,7 @@ import movieAppImage from "../assets/images/projectsImage/movieapp.png"
 import portfolioImage from "../assets/images/projectsImage/portfolio.png"
 import weatherAppImage from "../assets/images/projectsImage/weatherapp.png"
 import colorGeneratorAppImage from "../assets/images/projectsImage/colorgeneratorapp.png"
+import jobkurierImage from "../assets/images/projectsImage/jobkurier.png"
 
 export const useProjectList = () => {
   const projects = [
@@ -41,6 +42,15 @@ export const useProjectList = () => {
       liveDemoUrl: "https://color-palette-generator-phi.vercel.app/",
       description:
         "Bu uygulama, size rastgele bir renk sunar ve bu renge uygun olarak dört farklı varyasyon daha oluşturur. Bu oluşturulan renklerin hexadecimal renk kodlarını kopyalayarak, projelerinizde kullanabilirsiniz. Bu uygulama, renklerin çeşitliliğini artırırken aynı zamanda projelerinizin görsel çekiciliğini de artırmanızı sağlar. Renk kodları, kullanımınızı kolaylaştırmak adına projelerinizde hızlıca kullanabileceğiniz bir biçimde sunulmaktadır.",
+    },
+    {
+      id: 4,
+      name: "Jobkurier",
+      image: jobkurierImage,
+      githubUrl: "",
+      liveDemoUrl: "https://www.jobkurier.de/",
+      description:
+        "ASP.NET MVC tabanlı bu projede, iş ilanı arama, ilan paylaşma, paket satın alma, iş ilanı detaylarını görüntüleme, beğenilen ilanları favorilere ekleme gibi özellikler bulunmaktadır.",
     },
   ];
 

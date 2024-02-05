@@ -8,7 +8,7 @@ const Intro = () => {
     return (
 
         <section className="min-h-screen h-full flex items-center justify-center overflow-hidden flex-col " >
-            <Particle />
+            {/* <Particle /> */}
             <div className="flex justify-center">
                 <img className="w-1/3 min-w-[280px] drop-shadow-blue-btn " src={codetyping} alt="codetyping" />
             </div>

@@ -28,14 +28,14 @@ const Projects = () => {
                 </Tooltip>
               </div>
               <div className="flex items-center gap-5 justify-center mt-2">
-                <a target="_blank" href={project.liveDemoUrl} className="w-full flex items-center justify-center border overflow-hidden glassmorphism-button group bg-transparent relative py-3">
+                <a target="_blank" href={project.liveDemoUrl} className={`${project.githubUrl === "" ? "w-1/2" : "w-full"} flex items-center justify-center border  overflow-hidden glassmorphism-button group bg-transparent relative py-3`}>
                   <div style={{ transition: "all .3s ease-in-out" }} className="flex items-center justify-center absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-0 h-0 z-[-1] rounded-lg  bg-gradient-to-r from-blue-500 to-black-700 group-hover:h-full  group-hover:w-full group-hover:transition-all group-hover:font-bold group-hover:duration-500 animate-pulse"></div>
                   <SlScreenDesktop size={20} className="mr-2 text-white" />
                   <span >
                     Canlı
                   </span>
                 </a>
-                <a href={project.githubUrl} target="_blank" className="w-full glassmorphism-button overflow-hidden border flex items-center justify-center  group bg-transparent relative py-3">
+                <a href={project.githubUrl} target="_blank" className={`${project.githubUrl === "" ? "hidden" : "w-full glassmorphism-button overflow-hidden border flex items-center justify-center group bg-transparent relative py-3"}`}>
                   <div style={{ transition: "all .3s ease-in-out" }} className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-0 h-0 z-[-1] rounded-lg bg-gradient-to-r from-blue-500 to-black-700 group-hover:h-full  group-hover:w-full group-hover:transition-all group-hover:font-bold group-hover:duration-500 animate-pulse"></div>
                   <FiGithub size={20} className="mr-2" />
                   <span  >
