@@ -12,7 +12,7 @@ const Home = () => {
   return (
     <SlideAnimation>
       <Helmet>
-        <title>Ana Sayfa</title>
+        <title>Halil Can Cengiz</title>
         <meta name="description" content="Öğrenmek, Tasarlamak ve Paylaşmak:Frontend Geliştirme Yolculuğum. Kişisel deneyimlerim, projelerim ve öğrenme yolculuğum paylaşımları ile ..." />
         <meta name="keywords" content="frontend, geliştirme, öğrenme, tasarım, paylaşım, javascript, react, html, css, bootstrap, tailwindcss" />
         <html lang="tr" />
