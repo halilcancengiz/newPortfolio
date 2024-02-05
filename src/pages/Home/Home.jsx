@@ -13,7 +13,7 @@ const Home = () => {
     <SlideAnimation>
       <Helmet>
         <title>Ana Sayfa</title>
-        <meta name="description" content="Sayfa açıklaması buraya gelecek" />
+        <meta name="description" content="Öğrenmek, Tasarlamak ve Paylaşmak:Frontend Geliştirme Yolculuğum. Kişisel deneyimlerim, projelerim ve öğrenme yolculuğum paylaşımları ile ..." />
         <meta name="keywords" content="frontend, geliştirme, öğrenme, tasarım, paylaşım, javascript, react, html, css, bootstrap, tailwindcss" />
         <html lang="tr" />
         <link rel="canonical" href={window.location.href} />
